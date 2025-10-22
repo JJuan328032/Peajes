@@ -1,8 +1,13 @@
 package ort.da.sistema_peajes.peaje.model.Usuarios;
 
+import javax.security.auth.login.LoginException;
+
 import ort.da.sistema_peajes.peaje.exceptions.EstadoException;
 
 public abstract class Usuario {
+
+
+	abstract public void Validar() throws EstadoException ,LoginException;
 
 	private String usuario;
 	private String password;

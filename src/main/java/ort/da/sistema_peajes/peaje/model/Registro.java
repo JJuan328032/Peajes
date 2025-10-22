@@ -1,22 +1,48 @@
 package ort.da.sistema_peajes.peaje.model;
 
-import java.sql.Date;
+import java.util.Date;
 import ort.da.sistema_peajes.peaje.model.Bonificacion.Bonificacion;
 
 public class Registro {
+    private Puesto puesto;
+    private Vehiculo vehiculo;
+    private Date fecha;
+    private int montoBonificado;
+    private Tarifa tarifa;
+    private Bonificacion bonificacion;
 
-	private Puesto puesto;
+    public Registro(Puesto puesto, Vehiculo vehiculo, Date fecha) {
+        this.puesto = puesto;
+        this.vehiculo = vehiculo;
+        this.fecha = fecha;
+        this.montoBonificado = 0;
+    }
 
-	private Vehiculo vehiculo;
+    public Puesto getPuesto() {
+        return puesto;
+    }
 
-	private Date fecha;
+    public Vehiculo getVehiculo() {
+        return vehiculo;
+    }
 
-	private int montoBonificado;
+    public Date getFecha() {
+        return fecha;
+    }
 
+    public int getMontoBonificado() {
+        return montoBonificado;
+    }
 
-	private Tarifa tarifa;
+    public void setMontoBonificado(int montoBonificado) {
+        this.montoBonificado = montoBonificado;
+    }
 
-	private Bonificacion bonificacion;
+    public Bonificacion getBonificacion() {
+        return bonificacion;
+    }
 
-
+    public void setBonificacion(Bonificacion bonificacion) {
+        this.bonificacion = bonificacion;
+    }
 }

@@ -4,30 +4,39 @@ import java.util.ArrayList;
 import ort.da.sistema_peajes.peaje.model.Bonificacion.Bonificacion;
 
 public class Puesto {
-
 	private String nombre;
-
 	private String direccion;
-
 	private ArrayList<Tarifa> tarifas;
+	private ArrayList<Bonificacion> bonificaciones;
 
-	private Tarifa tarifa;
-
-	private Bonificacion bonificacion;
-
-	private Registro registro;
-
-
+	public Puesto(String nombre, String direccion) {
+		this.nombre = nombre;
+		this.direccion = direccion;
+		this.tarifas = new ArrayList<>();
+		this.bonificaciones = new ArrayList<>();
+	}
 
 	public String getNombre() {
-		return null;
+		return nombre;
 	}
 
-	/**
-	 * return this.tarifas;
-	 */
+	public String getDireccion() {
+		return direccion;
+	}
+
+	public void agregarTarifa(Tarifa tarifa) {
+		this.tarifas.add(tarifa);
+	}
+
 	public ArrayList<Tarifa> getTarifas() {
-		return null;
+		return tarifas;
 	}
 
+	public void agregarBonificacion(Bonificacion bonificacion) {
+		this.bonificaciones.add(bonificacion);
+	}
+
+	public ArrayList<Bonificacion> getBonificaciones() {
+		return bonificaciones;
+	}
 }
