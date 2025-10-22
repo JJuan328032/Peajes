@@ -12,4 +12,8 @@ public abstract class Bonificacion {
 	public String getNombre() {
 		return nombre;
 	}
+
+	public abstract int calcular(int monto);
+	//USAMOS FACTORY PARA CREAR LAS BONIFICACIONES ESPECIFICAS?
+	
 }

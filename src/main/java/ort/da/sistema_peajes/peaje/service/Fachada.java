@@ -1,9 +1,14 @@
 package ort.da.sistema_peajes.peaje.service;
 
+import javax.security.auth.login.LoginException;
+
 import ort.da.sistema_peajes.peaje.datos.SistemaPuestos;
 import ort.da.sistema_peajes.peaje.datos.SistemaRegistro;
 import ort.da.sistema_peajes.peaje.datos.SistemaVehiculos;
+import ort.da.sistema_peajes.peaje.exceptions.EstadoException;
 import ort.da.sistema_peajes.peaje.datos.SistemaUsuarios;
+import ort.da.sistema_peajes.peaje.model.Usuarios.Administrador;
+import ort.da.sistema_peajes.peaje.model.Usuarios.Propietario;
 import ort.da.sistema_peajes.peaje.model.Usuarios.Usuario;
 
 import ort.da.sistema_peajes.peaje.service.LoginUsuario;
@@ -37,5 +42,21 @@ public class Fachada {
 	public Usuario login(LoginUsuario login, String usuario, String password) {
 		return login.login(usuario, password);
 	}
+
+	public Propietario loginPropietario(String user, String pass) throws LoginException, EstadoException{
+		return sistemaUsuarios.loginPropietario(user, pass);
+	}
+
+	public Administrador loginAdministrador(String user, String pass) throws LoginException, EstadoException{
+		return sistemaUsuarios.loginAdministrador(user, pass);
+	}
+
+	public void agregarAdministrador(String user, String pass, String nombreCompleto) {
+		sistemaUsuarios.agregarAdministrador(user, pass, nombreCompleto);
+	}
+
+    public void agregarPropietario(String user, String pass, String nombreCompleto) {
+        sistemaUsuarios.agregarPropietario(user, pass, nombreCompleto);
+    }
 
 }
