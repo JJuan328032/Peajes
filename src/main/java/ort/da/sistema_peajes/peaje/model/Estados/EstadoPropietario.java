@@ -18,7 +18,7 @@ public abstract class EstadoPropietario {
         return this.getClass().equals(estado.getClass());
     }
 
-    public abstract boolean puedeEntrar() throws EstadoException;
+    public abstract void puedeEntrar() throws EstadoException;
 
     public abstract void habilitado() throws EstadoException;
     public abstract void suspendido() throws EstadoException;

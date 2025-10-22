@@ -11,8 +11,8 @@ public class Penalizado extends EstadoPropietario {
     }
 
     @Override
-    public boolean puedeEntrar() throws EstadoException {
-        return true;
+    public void puedeEntrar() throws EstadoException {
+        return;
     }
 
     @Override

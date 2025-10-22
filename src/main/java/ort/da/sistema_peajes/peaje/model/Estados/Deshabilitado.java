@@ -11,8 +11,8 @@ public class Deshabilitado extends EstadoPropietario {
     }
 
     @Override
-    public boolean puedeEntrar() throws EstadoException {
-        return false;
+    public void puedeEntrar() throws EstadoException {
+        throw new EstadoException("Usuario deshabilitado, no puede ingresar al sistema");
     }
 
     @Override

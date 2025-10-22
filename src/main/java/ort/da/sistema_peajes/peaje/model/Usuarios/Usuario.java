@@ -6,9 +6,6 @@ import ort.da.sistema_peajes.peaje.exceptions.EstadoException;
 
 public abstract class Usuario {
 
-
-	abstract public void Validar() throws EstadoException ,LoginException;
-
 	private String usuario;
 	private String password;
 	private String nombreCompleto;
@@ -20,13 +17,15 @@ public abstract class Usuario {
 		this.nombreCompleto = nombreCompleto;
 	}
 
+	abstract public void Validar() throws EstadoException ,LoginException;
+
 
 	public String getNombreCompleto() {
 		return this.nombreCompleto;
 	}
 
     public boolean validarCredenciales(String usuario, String password) throws EstadoException{
-		return this.usuario.equals(usuario) && this.password.equals(password); // && this.estado.puedeEntrar()
+		return this.usuario.equals(usuario) && this.password.equals(password);
 	}
 
 }

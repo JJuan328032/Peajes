@@ -15,7 +15,7 @@ import ort.da.sistema_peajes.peaje.model.Usuarios.Propietario;
 public class ControladorTableroPropietario {
 
     @PostMapping("/personales")
-
+    
 
 
 }

@@ -27,11 +27,19 @@ public class SistemaUsuarios {
 	}
 
 	public Administrador loginAdministrador(String usuario, String password) throws LoginException, EstadoException{
-		return login(usuario, password, administradores);
+		Administrador administrador = login(usuario, password, administradores);
+		administrador.setLogged(true);
+		
+		return administrador;
 	}
 
 	private <T extends Usuario> T login(String usuario, String password, ArrayList<T> lista) throws LoginException, EstadoException{
-		for (T u : lista) if (u.validarCredenciales(usuario, password)) return u;
+		for (T u : lista) 
+			if (u.validarCredenciales(usuario, password)) {
+				u.Validar();
+				return u;
+			}
+
 		throw new LoginException("Algo salió mal...");
 	}
 
