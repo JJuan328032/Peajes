@@ -1,4 +1,4 @@
-package ort.da.sistema_peajes.peaje.controlador;
+package ort.da.sistema_peajes.peaje;
 
 import javax.security.auth.login.LoginException;
 

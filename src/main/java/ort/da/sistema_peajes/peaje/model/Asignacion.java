@@ -11,22 +11,17 @@ public class Asignacion {
 
 	private Date fecha;
 
-	/**
-	 * return this.puesto.getNombre();
-	 */
+
 	public String getPuestoNombre() {
-		return null;
+		return this.puesto.getNombre();
 	}
 
 	public String getBonificacionNombre() {
 		return null;
 	}
 
-	/**
-	 * return this.fecha;
-	 */
 	public Date getFecha() {
-		return null;
+		return this.fecha;
 	}
 
 }
