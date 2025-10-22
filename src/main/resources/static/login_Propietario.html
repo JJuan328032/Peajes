@@ -5,34 +5,38 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<title>Login Propietario</title>
 	<link rel="icon" href="/favicon.ico">
-	<link rel="stylesheet" href="./login_Propietario.css">
+	<link rel="stylesheet" href="login_Propietario.css">
+	<script src="vistaWeb.js"></script>
+	
 </head>
 <body>
+	<script src="utilesVista.js"></script>
 	<div class="login-container">
 
 		<form id="formLogin" action="/login" method="post" onsubmit="handleLogin(event)" class="login-form">
 			<h2>Ingreso - Propietario</h2>
+
+
 			<div class="field">
 				<label for="user">Usuario</label>
-				<input type="text" id="user" name="user" autocomplete="username" required />
+				<input type="text" id="user" name="user" required />
 			</div>
 			<div class="field">
 				<label for="pass">Contraseña</label>
-				<input type="password" id="pass" name="pass" autocomplete="current-password" required />
+				<input type="password" id="pass" name="pass" required />
 			</div>
 			<button type="submit" class="btn">Entrar</button>
 
-			<div id="errorMsg" class="error-message" role="alert" aria-live="polite"></div>
 			<div class="small-note">Usa tus credenciales para ingresar</div>
 		</form>
 
+		
 	</div>
 
-	<script src="../vistaWeb.js"></script>
-	<script src="../utilesVista.js"></script>
+	
 	<script>
 
-	const URL_SUBMIT = "/acceso/loginPropietario";
+        const URL_SUBMIT = "acceso/loginPropietario";
 
 		// Enviar datos del formulario usando las utilidades del proyecto
 		function handleLogin(event) {
@@ -44,13 +48,10 @@
         function mostrar_LoginExitoso(urlDestino){
             window.location.href = urlDestino;
         }
-		// VistaWeb.js invoca excepcionDeAplicacion cuando el servidor devuelve status 299
-		function excepcionDeAplicacion(text){
-			const err = document.getElementById('errorMsg');
-			const mensaje = (text && text.toString()) || 'Error de aplicación';
-			if(err){ err.textContent = mensaje; err.style.display = 'block'; }
-			try{ mostrarMensaje(mensaje); }catch(e){}
-		}
+
+        async function excepcionDeAplicacion(text){
+            await mostrarMensaje(text);
+        }
 	</script>
 </body>
 </html>

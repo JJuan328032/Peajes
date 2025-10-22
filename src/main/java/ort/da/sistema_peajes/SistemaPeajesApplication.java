@@ -12,9 +12,10 @@ public class SistemaPeajesApplication {
 		SpringApplication.run(SistemaPeajesApplication.class, args);
 		
 		Precarga.cargar();
+		System.out.println("Sistema de Peajes iniciado.");
 
-		//http://localhost:8080/vistas/login_Propietario.html
-		//http://localhost:8080/vistas/login_Administrador.html
+		//http://localhost:8080/login_Propietario.html
+		//http://localhost:8080/login_Administrador.html
 	}
 
 }

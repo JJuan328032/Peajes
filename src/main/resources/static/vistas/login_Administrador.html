@@ -51,6 +51,14 @@
       if(err){ err.textContent = mensaje; err.style.display = 'block'; }
       try{ mostrarMensaje(mensaje); }catch(e){ }
     }
+
+    // VistaWeb.js invoca excepcionDeAplicacion cuando el servidor devuelve status 299
+    function excepcionDeAplicacion(text){
+      const err = document.getElementById('errorMsgAdmin');
+      const mensaje = (text && text.toString()) || 'Error de aplicación';
+      if(err){ err.textContent = mensaje; err.style.display = 'block'; }
+      try{ mostrarMensaje(mensaje); }catch(e){}
+    }
   </script>
 </body>
 </html>

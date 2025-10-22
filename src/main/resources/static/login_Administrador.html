@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login Administrador</title>
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="./login_Administrador.css">
+  <script src="vistaWeb.js"></script>
+</head>
+<body>
+	<script src="utilesVista.js"></script>
+	<div class="login-container">
+
+		<form id="formLogin" action="/login" method="post" onsubmit="handleLogin(event)" class="login-form">
+      <h2>Ingreso - Administrador</h2>
+
+
+			<div class="field">
+				<label for="user">Usuario</label>
+				<input type="text" id="user" name="user" required />
+			</div>
+			<div class="field">
+				<label for="pass">Contraseña</label>
+				<input type="password" id="pass" name="pass" required />
+			</div>
+			<button type="submit" class="btn">Entrar</button>
+
+
+      <div class="small-note">Usa tus credenciales para ingresar</div>
+		</form>
+
+	</div>
+
+	
+	<script>
+
+        const URL_SUBMIT = "acceso/loginAdministrador";
+
+		// Enviar datos del formulario usando las utilidades del proyecto
+		function handleLogin(event) {
+            event.preventDefault();
+            submit(URL_SUBMIT, serializarFormulario("formLogin"));
+        }
+
+		//La respuesta correcta del submit tiene la url de la vista siguiente
+        function mostrar_LoginExitoso(urlDestino){
+            window.location.href = urlDestino;
+        }
+		
+        async function excepcionDeAplicacion(text){
+            await mostrarMensaje(text);
+        }
+	</script>
+</body>
+</html>

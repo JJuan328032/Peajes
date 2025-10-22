@@ -87,6 +87,8 @@ function submit(endPointUrl, urlEncodedData) {
       
     });
 }
+
+// Manejo de errores en el submit
 function manejarError(status, text, url, data){
      try {
          //Definir para personalizar el manejo de errores en las paginas
