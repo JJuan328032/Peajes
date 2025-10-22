@@ -7,6 +7,9 @@ import ort.da.sistema_peajes.peaje.model.Registro;
 
 import java.util.ArrayList;
 
+import javax.security.auth.login.LoginException;
+
+import ort.da.sistema_peajes.peaje.exceptions.EstadoException;
 import ort.da.sistema_peajes.peaje.model.Asignacion;
 
 public class Propietario extends Usuario {
@@ -33,6 +36,13 @@ public class Propietario extends Usuario {
 
 	public int getSaldo() {
 		return this.saldo;
+	}
+
+
+	@Override
+	public void Validar() throws EstadoException, LoginException {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'Validar'");
 	}
 
 }
