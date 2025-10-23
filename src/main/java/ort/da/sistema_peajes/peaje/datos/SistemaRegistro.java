@@ -1,6 +1,7 @@
 package ort.da.sistema_peajes.peaje.datos;
 
 import java.util.ArrayList;
+
 import ort.da.sistema_peajes.peaje.model.Registro;
 
 public class SistemaRegistro {

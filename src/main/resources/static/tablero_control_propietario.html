@@ -1,11 +1,149 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Tablero de Control - Propietario</title>
+    <link rel="stylesheet" href="../vistas/tablero_control_propietario.css">
+    <script src="../utilesVista.js"></script>
+    <script src="../vistaWeb.js"></script>
 </head>
 <body>
-    <h1>Bienvenido Propietario!</h1>
+    <div class="tablero-container">
+        <!-- Sección de Notificaciones -->
+        <section class="seccion" id="notificaciones">
+            <div class="notificaciones-header">
+                <h2>Notificaciones</h2>
+                <button class="btn-borrar" onclick="borrarNotificaciones()">
+                    Borrar todas
+                </button>
+            </div>
+            <ul class="lista-notificaciones" id="lista-notificaciones">
+                <!-- Las notificaciones se agregarán dinámicamente -->
+            </ul>
+        </section>
+
+        <!-- Grid de 2 columnas para datos del propietario y vehículos -->
+        <div class="grid-50-50">
+            <section class="seccion" id="datos-propietario">
+                <h2>Datos del Propietario</h2>
+                <div id="info-propietario">
+                    <!-- Los datos del propietario se cargarán dinámicamente -->
+                </div>
+            </section>
+
+            <section class="seccion" id="vehiculos">
+                <h2>Mis Vehículos</h2>
+                <div id="lista-vehiculos">
+                    <!-- La tabla de vehículos se generará dinámicamente -->
+                </div>
+            </section>
+        </div>
+
+        <!-- Sección de Tránsitos Recientes -->
+        <section class="seccion" id="transitos">
+            <h2>Tránsitos Recientes</h2>
+            <div id="lista-transitos">
+                <!-- La tabla de tránsitos se generará dinámicamente -->
+            </div>
+        </section>
+
+        <!-- Sección de Bonificaciones -->
+        <section class="seccion" id="bonificaciones">
+            <h2>Bonificaciones</h2>
+            <div id="lista-bonificaciones">
+                <!-- La tabla de bonificaciones se generará dinámicamente -->
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Función para inicializar el tablero
+        async function inicializarTablero() {
+            try {
+                // Cargar datos del propietario
+                const dataPropietario = await realizarPeticionGET('/api/propietario/datos');
+                mostrarDatosPropietario(dataPropietario);
+
+                // Cargar vehículos
+                const dataVehiculos = await realizarPeticionGET('/api/propietario/vehiculos');
+                mostrarVehiculos(dataVehiculos);
+
+                // Cargar tránsitos
+                const dataTransitos = await realizarPeticionGET('/api/propietario/transitos');
+                mostrarTransitos(dataTransitos);
+
+                // Cargar bonificaciones
+                const dataBonificaciones = await realizarPeticionGET('/api/propietario/bonificaciones');
+                mostrarBonificaciones(dataBonificaciones);
+            } catch (error) {
+                mostrarError('Error al cargar los datos del tablero');
+                console.error('Error:', error);
+            }
+        }
+
+        function mostrarDatosPropietario(data) {
+            const propietarioDiv = document.getElementById('info-propietario');
+            // Crear una tabla con los datos del propietario
+            const tabla = crearTabla(['Campo', 'Valor'], [
+                ['Nombre', data.nombre],
+                ['Email', data.email],
+                ['Documento', data.documento]
+            ]);
+            propietarioDiv.innerHTML = '';
+            propietarioDiv.appendChild(tabla);
+        }
+
+        function mostrarVehiculos(vehiculos) {
+            const vehiculosDiv = document.getElementById('lista-vehiculos');
+            const tabla = crearTabla(
+                ['Matrícula', 'Modelo', 'Categoría', 'Estado'],
+                vehiculos.map(v => [v.matricula, v.modelo, v.categoria, v.estado])
+            );
+            vehiculosDiv.innerHTML = '';
+            vehiculosDiv.appendChild(tabla);
+        }
+
+        function mostrarTransitos(transitos) {
+            const transitosDiv = document.getElementById('lista-transitos');
+            const tabla = crearTabla(
+                ['Fecha', 'Puesto', 'Vehículo', 'Monto'],
+                transitos.map(t => [
+                    new Date(t.fecha).toLocaleString(),
+                    t.puesto,
+                    t.vehiculo,
+                    `$${t.monto.toFixed(2)}`
+                ])
+            );
+            transitosDiv.innerHTML = '';
+            transitosDiv.appendChild(tabla);
+        }
+
+        function mostrarBonificaciones(bonificaciones) {
+            const bonificacionesDiv = document.getElementById('lista-bonificaciones');
+            const tabla = crearTabla(
+                ['Tipo', 'Descuento', 'Estado', 'Vehículo'],
+                bonificaciones.map(b => [
+                    b.tipo,
+                    `${b.descuento}%`,
+                    b.estado,
+                    b.vehiculo
+                ])
+            );
+            bonificacionesDiv.innerHTML = '';
+            bonificacionesDiv.appendChild(tabla);
+        }
+
+        function borrarNotificaciones() {
+            const lista = document.getElementById('lista-notificaciones');
+            lista.innerHTML = '';
+            // Opcional: llamar al backend para marcar como leídas
+            realizarPeticionPOST('/api/propietario/notificaciones/borrar', {})
+                .catch(error => console.error('Error al borrar notificaciones:', error));
+        }
+
+        // Inicializar el tablero cuando se carga la página
+        document.addEventListener('DOMContentLoaded', inicializarTablero);
+    </script>
 </body>
 </html>

@@ -1,0 +1,120 @@
+/* Variables y reset */
+:root {
+    --color-primary: #9b59b6;
+    --color-bg: #f5f6fb;
+    --shadow: 0 4px 6px rgba(0,0,0,0.1);
+    --border-radius: 8px;
+    --spacing: 20px;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Segoe UI, Roboto, Arial, sans-serif;
+    background: var(--color-bg);
+    min-height: 100vh;
+}
+
+/* Layout principal */
+.tablero-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--spacing);
+}
+
+/* Secciones comunes */
+.seccion {
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    padding: var(--spacing);
+    margin-bottom: var(--spacing);
+}
+
+.seccion h2 {
+    margin: 0 0 var(--spacing);
+    color: var(--color-primary);
+    font-size: 1.5rem;
+}
+
+/* Grid layout para secciones lado a lado */
+.grid-50-50 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing);
+    margin-bottom: var(--spacing);
+}
+
+/* Estilos para tablas generadas por utilesVista.js */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1rem;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+th {
+    background: #f8f9fa;
+    font-weight: 600;
+    color: #444;
+}
+
+/* Sección de notificaciones */
+.notificaciones-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.btn-borrar {
+    background: #dc3545;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.btn-borrar:hover {
+    background: #c82333;
+}
+
+.lista-notificaciones {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.notificacion {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 12px;
+}
+
+.notificacion-tiempo {
+    color: #666;
+    font-size: 0.9em;
+    white-space: nowrap;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .grid-50-50 {
+        grid-template-columns: 1fr;
+    }
+    
+    .tablero-container {
+        padding: 10px;
+    }
+}

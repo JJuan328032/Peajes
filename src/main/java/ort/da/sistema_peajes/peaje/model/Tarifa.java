@@ -1,10 +1,12 @@
 package ort.da.sistema_peajes.peaje.model;
 
 public class Tarifa {
+    private String tipo;
     private int monto;
     private CategoriaVehiculos categoria;
 
-    public Tarifa(int monto, String nombreCategoria) {
+    public Tarifa(String tipo, int monto, String nombreCategoria) {
+        this.tipo = tipo;
         this.monto = monto;
         this.categoria = new CategoriaVehiculos(nombreCategoria);
     }
@@ -15,5 +17,9 @@ public class Tarifa {
 
     public CategoriaVehiculos getCategoria() {
         return categoria;
+    }
+
+    public String getTipo() {
+        return this.tipo;
     }
 }

@@ -4,6 +4,8 @@ import ort.da.sistema_peajes.peaje.model.Bonificacion.*;
 import ort.da.sistema_peajes.peaje.model.*;
 import ort.da.sistema_peajes.peaje.model.Usuarios.*;
 import ort.da.sistema_peajes.peaje.service.Fachada;
+
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -23,7 +25,7 @@ public class SeedData {
         cargarVehiculos();
         cargarPuestos();
         cargarBonificaciones();
-        cargarRegistros();
+        //cargarRegistros();
         System.out.println("Datos de prueba cargados exitosamente");
     }
 
@@ -83,11 +85,11 @@ public class SeedData {
 
     private static void agregarTarifas(Puesto puesto) {
         ArrayList<Tarifa> tarifas = new ArrayList<>();
-        tarifas.add(new Tarifa(100, "Automóvil"));
-        tarifas.add(new Tarifa(150, "Camioneta"));
-        tarifas.add(new Tarifa(300, "Camión"));
-        tarifas.add(new Tarifa(250, "Ómnibus"));
-        tarifas.add(new Tarifa(50, "Moto"));
+        tarifas.add(new Tarifa("Tarifa Básica", 100, "Automóvil"));
+        tarifas.add(new Tarifa("Tarifa Básica", 150, "Camioneta"));
+        tarifas.add(new Tarifa("Tarifa Básica", 300, "Camión"));
+        tarifas.add(new Tarifa("Tarifa Básica", 250, "Ómnibus"));
+        tarifas.add(new Tarifa("Tarifa Básica", 50, "Moto"));
         // Asignar tarifas al puesto
     }
 
@@ -98,14 +100,16 @@ public class SeedData {
         // Las bonificaciones se asignarán a los vehículos según corresponda
     }
 
+    /* 
     private static void cargarRegistros() {
         // Ejemplos de registros de paso por peajes
-        Date fecha = new Date();
+        LocalDateTime fecha = LocalDateTime.now();
         
         Registro r1 = new Registro(
             sistemaPuestos.getPuestos().get(0),
             sistemaVehiculos.getVehiculos().get(0),
-            fecha
+            fecha,
+            tarifas.get(0)
         );
         
         Registro r2 = new Registro(
@@ -117,4 +121,5 @@ public class SeedData {
         sistemaRegistro.agregarRegistro(r1);
         sistemaRegistro.agregarRegistro(r2);
     }
+        */
 }
