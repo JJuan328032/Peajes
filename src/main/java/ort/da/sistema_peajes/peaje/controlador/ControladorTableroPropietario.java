@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.SessionAttribute;
+import jakarta.servlet.http.HttpSession;
 
 import ort.da.sistema_peajes.Respuesta;
 import ort.da.sistema_peajes.peaje.model.Usuarios.Propietario;
@@ -16,14 +16,19 @@ import ort.da.sistema_peajes.peaje.model.Usuarios.Propietario;
 public class ControladorTableroPropietario {
 
     @PostMapping("/informacion")
-    public List<Respuesta> iniciarTablero(@SessionAttribute(name = "propietario") Propietario p){
+    public List<Respuesta> iniciarTablero(HttpSession session){
+        // Verificar si hay propietario en la sesión; si no, devolver una respuesta clara
+        Propietario p = (Propietario) session.getAttribute("propietario");
+        if (p == null) {
+            return Respuesta.lista(new Respuesta("NoSesion", "No hay sesión de propietario"));
+        }
 
         return Respuesta.lista(
             propietario(p),
             asignaciones(p),
             vehiculos(p),
             transitosRealizados(p)
-            );
+        );
     }
     
 

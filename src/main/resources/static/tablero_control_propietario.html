@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tablero de Control - Propietario</title>
-    <link rel="stylesheet" href="../vistas/tablero_control_propietario.css">
-    <script src="../utilesVista.js"></script>
-    <script src="../vistaWeb.js"></script>
+    <link rel="stylesheet" href="vistas/tablero_control_propietario.css">
 </head>
 <body>
     <div class="tablero-container">
@@ -58,37 +56,69 @@
     </div>
 
     <script>
-        // Función para inicializar el tablero
-        async function inicializarTablero() {
-            try {
-                // Cargar datos del propietario
-                const dataPropietario = await realizarPeticionGET('/api/propietario/datos');
-                mostrarDatosPropietario(dataPropietario);
+    // Endpoint real que requiere sesión
+    var urlIniciarVista = '/tablero/informacion';
+        var parametrosInicioVista = '';
+        var prefijoNombreFuncionProcesoResultado = 'mostrar_';
+    </script>
+    <script src="utilesVista.js"></script>
+    <script src="vistaWeb.js"></script>
+    <script>
+        // Fallback: si urlIniciarVista sigue sin definirse en tiempo de ejecución,
+        // forzamos el uso del mock. No ejecutamos submit aquí para evitar
+        // envíos duplicados (vistaWeb.js hace el submit inicial en DOMContentLoaded).
+        if (!window.urlIniciarVista) {
+            console.warn('Fallback: urlIniciarVista no definida; usando /tablero/informacion/mock');
+            window.urlIniciarVista = '/tablero/informacion/mock';
+        }
+    </script>
+    <script>
+        // Manejo simple de errores de carga
+        function mostrarError(msg) {
+            console.error(msg);
+            alert(msg);
+        }
 
-                // Cargar vehículos
-                const dataVehiculos = await realizarPeticionGET('/api/propietario/vehiculos');
-                mostrarVehiculos(dataVehiculos);
+        // Las funciones mostrar_<id> serán llamadas por vistaWeb.js al recibir la lista de Respuesta
+        function mostrar_propietario(param) {
+            console.log('mostrar_propietario recibido:', param);
+            if (!param) return mostrarError('Propietario vacío');
+            mostrarDatosPropietario(param);
+        }
 
-                // Cargar tránsitos
-                const dataTransitos = await realizarPeticionGET('/api/propietario/transitos');
-                mostrarTransitos(dataTransitos);
+        // Si el servidor indica que no hay sesión activa, redirigimos al login
+        function mostrar_NoSesion(param) {
+            console.warn('Servidor indica que no hay sesión activa:', param);
+            mostrarMensaje('No se ha iniciado sesión. Será redirigido al login.').then(() => {
+                window.location.href = '/login_Propietario.html';
+            }).catch(() => { window.location.href = '/login_Propietario.html'; });
+        }
 
-                // Cargar bonificaciones
-                const dataBonificaciones = await realizarPeticionGET('/api/propietario/bonificaciones');
-                mostrarBonificaciones(dataBonificaciones);
-            } catch (error) {
-                mostrarError('Error al cargar los datos del tablero');
-                console.error('Error:', error);
-            }
+        function mostrar_vehiculos(param) {
+            console.log('mostrar_vehiculos recibido:', param);
+            if (!param) return document.getElementById('lista-vehiculos').innerHTML = '<p>No hay vehículos.</p>';
+            mostrarVehiculos(param);
+        }
+
+        function mostrar_transitosRealizados(param) {
+            console.log('mostrar_transitosRealizados recibido:', param);
+            if (!param) return document.getElementById('lista-transitos').innerHTML = '<p>No hay tránsitos.</p>';
+            mostrarTransitos(param);
+        }
+
+        function mostrar_asignaciones(param) {
+            console.log('mostrar_asignaciones recibido:', param);
+            if (!param) return document.getElementById('lista-bonificaciones').innerHTML = '<p>No hay asignaciones.</p>';
+            mostrarBonificaciones(param);
         }
 
         function mostrarDatosPropietario(data) {
             const propietarioDiv = document.getElementById('info-propietario');
-            // Crear una tabla con los datos del propietario
+            if (!data) return propietarioDiv.innerHTML = '<p>Sin datos del propietario.</p>';
             const tabla = crearTabla(['Campo', 'Valor'], [
-                ['Nombre', data.nombre],
-                ['Email', data.email],
-                ['Documento', data.documento]
+                ['Nombre', data.nombreCompleto || ''],
+                ['Estado', data.estado || ''],
+                ['Saldo', data.saldo !== undefined ? data.saldo : '']
             ]);
             propietarioDiv.innerHTML = '';
             propietarioDiv.appendChild(tabla);
@@ -96,54 +126,36 @@
 
         function mostrarVehiculos(vehiculos) {
             const vehiculosDiv = document.getElementById('lista-vehiculos');
-            const tabla = crearTabla(
-                ['Matrícula', 'Modelo', 'Categoría', 'Estado'],
-                vehiculos.map(v => [v.matricula, v.modelo, v.categoria, v.estado])
-            );
-            vehiculosDiv.innerHTML = '';
-            vehiculosDiv.appendChild(tabla);
+            if (!Array.isArray(vehiculos) || vehiculos.length === 0) return vehiculosDiv.innerHTML = '<p>No hay vehículos.</p>';
+            const tablaHtml = crearTablaDesdeJson(vehiculos);
+            vehiculosDiv.innerHTML = tablaHtml;
         }
 
         function mostrarTransitos(transitos) {
             const transitosDiv = document.getElementById('lista-transitos');
-            const tabla = crearTabla(
-                ['Fecha', 'Puesto', 'Vehículo', 'Monto'],
-                transitos.map(t => [
-                    new Date(t.fecha).toLocaleString(),
-                    t.puesto,
-                    t.vehiculo,
-                    `$${t.monto.toFixed(2)}`
-                ])
-            );
-            transitosDiv.innerHTML = '';
-            transitosDiv.appendChild(tabla);
+            if (!Array.isArray(transitos) || transitos.length === 0) return transitosDiv.innerHTML = '<p>No hay tránsitos recientes.</p>';
+            // Mapear campos a una representación simple si hace falta
+            const tablaHtml = crearTablaDesdeJson(transitos);
+            transitosDiv.innerHTML = tablaHtml;
         }
 
         function mostrarBonificaciones(bonificaciones) {
             const bonificacionesDiv = document.getElementById('lista-bonificaciones');
-            const tabla = crearTabla(
-                ['Tipo', 'Descuento', 'Estado', 'Vehículo'],
-                bonificaciones.map(b => [
-                    b.tipo,
-                    `${b.descuento}%`,
-                    b.estado,
-                    b.vehiculo
-                ])
-            );
-            bonificacionesDiv.innerHTML = '';
-            bonificacionesDiv.appendChild(tabla);
+            if (!Array.isArray(bonificaciones) || bonificaciones.length === 0) return bonificacionesDiv.innerHTML = '<p>No hay bonificaciones.</p>';
+            const tablaHtml = crearTablaDesdeJson(bonificaciones);
+            bonificacionesDiv.innerHTML = tablaHtml;
         }
 
         function borrarNotificaciones() {
             const lista = document.getElementById('lista-notificaciones');
             lista.innerHTML = '';
-            // Opcional: llamar al backend para marcar como leídas
-            realizarPeticionPOST('/api/propietario/notificaciones/borrar', {})
-                .catch(error => console.error('Error al borrar notificaciones:', error));
+            // Opcional: llamar al backend para marcar como leídas usando vistaWeb.js submit si se desea
+            try {
+                submit('/api/propietario/notificaciones/borrar','');
+            } catch (e) {
+                console.error('Error al marcar notificaciones como borradas', e);
+            }
         }
-
-        // Inicializar el tablero cuando se carga la página
-        document.addEventListener('DOMContentLoaded', inicializarTablero);
     </script>
 </body>
 </html>

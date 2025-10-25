@@ -256,6 +256,43 @@ function crearTablaDesdeJson(data, onRowClick) {
     return html;
 }
 
+/**
+ * Crear una tabla DOM a partir de encabezados y filas.
+ * columns: array de strings (encabezados)
+ * rows: array de arrays (cada fila es array de celdas, valores simples o HTML-safe strings)
+ * Devuelve un elemento <table> listo para insertar en el DOM.
+ */
+function crearTabla(columns, rows) {
+  const table = document.createElement('table');
+  const thead = document.createElement('thead');
+  const trHead = document.createElement('tr');
+  columns.forEach(col => {
+    const th = document.createElement('th');
+    th.textContent = col;
+    trHead.appendChild(th);
+  });
+  thead.appendChild(trHead);
+  table.appendChild(thead);
+
+  const tbody = document.createElement('tbody');
+  rows.forEach(row => {
+    const tr = document.createElement('tr');
+    row.forEach(cell => {
+      const td = document.createElement('td');
+      // Evitar inyección: si el cell es un nodo DOM, anexarlo; si no, convertir a texto
+      if (cell instanceof Node) {
+        td.appendChild(cell);
+      } else {
+        td.textContent = (cell === null || cell === undefined) ? '' : cell;
+      }
+      tr.appendChild(td);
+    });
+    tbody.appendChild(tr);
+  });
+  table.appendChild(tbody);
+  return table;
+}
+
 // Función para formatear encabezados separando camelCase con espacios
 function formatearEncabezado(campo) {
     return campo

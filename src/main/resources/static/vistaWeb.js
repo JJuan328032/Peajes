@@ -12,9 +12,12 @@ var prefijoNombreFuncionProcesoResultado = "mostrar_";
 
 // Se ejecuta al final de la carga de la página para avisar al controlador que la vista esta cargada
 document.addEventListener("DOMContentLoaded", function () {
+    console.log('vistaWeb.js: DOMContentLoaded, urlIniciarVista =', urlIniciarVista);
     if (urlIniciarVista !== null) {
+        console.log('vistaWeb.js: ejecutando submit inicial a', urlIniciarVista);
         submit(urlIniciarVista, parametrosInicioVista);
     }
+    
 
 //Cuando se baja la pagina le avisa al controlador que la vista no está activa
     if (urlCierreVista !== null) {
@@ -30,6 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Ejecuta un endpoint usando fetch y envía datos en formato URL Encoded
 function submit(endPointUrl, urlEncodedData) {
+    console.log('vistaWeb.js: submit ->', endPointUrl, ' data:', urlEncodedData);
     fetch(endPointUrl, {
         method: 'POST',
         headers: {
@@ -39,6 +43,8 @@ function submit(endPointUrl, urlEncodedData) {
     }).then(async response => {
         const status = response.status;
         const text = await response.text();
+        console.log('vistaWeb.js: respuesta status=', status, ' longitud=', text ? text.length : 0);
+        try { console.log('vistaWeb.js: body (trunc):', text && text.length ? text.substring(0,1000) : text); } catch(e) {}
         //Si el servidor responede con error
         if(status<200 || status >299){
             manejarError(status,text,endPointUrl,urlEncodedData);
@@ -65,12 +71,14 @@ function submit(endPointUrl, urlEncodedData) {
         } 
         try {
             const json = JSON.parse(text);
+            console.log('vistaWeb.js: parse JSON OK, tipo:', Array.isArray(json) ? 'array' : typeof json);
             if (Array.isArray(json)) {
                  //si llega una coleccion de respuestas 
                   procesarResultadosSubmit(json);
             }else{
                 try{
                    //si llega otro tipo de respuesta 
+                  console.log('vistaWeb.js: llamando procesarRespuestaSubmit con texto');
                   procesarRespuestaSubmit(text);
                 } catch (e) {
                     console.error("No se encontro la funcion procesarRespuestaSubmit para la respuesta:",text);
@@ -78,7 +86,7 @@ function submit(endPointUrl, urlEncodedData) {
             }
              
         } catch (e) {
-            console.error("Error procesar la respuesta:", e);
+            console.error("Error procesar la respuesta (JSON.parse falló):", e, ' body=', text);
         }   
         
     }).catch(error => {

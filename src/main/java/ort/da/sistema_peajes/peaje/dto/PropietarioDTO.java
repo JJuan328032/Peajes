@@ -10,4 +10,17 @@ public class PropietarioDTO {
         this.estado = estado;
         this.saldo = saldo;
     }
+    
+    // Getters para serialización JSON
+    public String getNombreCompleto() {
+        return nombreCompleto;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public int getSaldo() {
+        return saldo;
+    }
 }
