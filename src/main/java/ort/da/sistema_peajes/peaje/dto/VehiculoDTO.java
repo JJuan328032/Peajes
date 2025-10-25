@@ -16,4 +16,20 @@ public class VehiculoDTO {
         this.transitos = transitos;
         this.montoTotal = montoTotal;
     }
+
+    public String getMatricula() {
+        return this.matricula;
+    }
+    public String getModelo() {
+        return this.modelo;
+    }
+    public String getColor() {
+        return this.color;
+    }
+    public int getTransitos() {
+        return this.transitos;
+    }
+    public double getMontoTotal() {
+        return this.montoTotal;
+    }
 }

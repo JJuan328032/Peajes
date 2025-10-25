@@ -2,7 +2,6 @@ package ort.da.sistema_peajes.peaje.model;
 
 import java.sql.Date;
 import java.sql.Time;
-import java.time.LocalDateTime;
 import ort.da.sistema_peajes.peaje.model.Bonificacion.Bonificacion;
 
 public class Registro {
@@ -65,32 +64,26 @@ public class Registro {
     }
 
     public String getMatricula() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getMatricula'");
+        return this.vehiculo.getMatricula();
     }
 
     public String getTipoTarifa() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getTipoTarifa'");
+        return this.tarifa;
     }
 
     public int getMontoTarifa() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getMontoTarifa'");
+        return this.montoTarifa;
     }
 
     public String getTipoBonificacion() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getTipoBonificacion'");
+        return this.bonificacion.getNombre();
     }
 
     public int getMontoBonificacion() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getMontoBonificacion'");
+        return this.montoBonificado;
     }
 
     public String getPuestoNombre() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getPuestoNombre'");
+        return this.puesto.getNombre();
     }
 }

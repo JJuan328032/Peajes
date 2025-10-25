@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import ort.da.sistema_peajes.Respuesta;
+import ort.da.sistema_peajes.peaje.dto.mappers.MapperAsignacion;
+import ort.da.sistema_peajes.peaje.dto.mappers.MapperInfoVehiculo;
+import ort.da.sistema_peajes.peaje.dto.mappers.MapperRegistro;
+import ort.da.sistema_peajes.peaje.dto.mappers.MapperPropietario;
 import ort.da.sistema_peajes.peaje.model.Usuarios.Propietario;
 
 @RestController
@@ -28,17 +32,17 @@ public class ControladorTableroPropietario {
     
 
     private Respuesta propietario(Propietario p){
-        return new Respuesta("propietario", p.mandarDatos());
+        return new Respuesta("propietario", MapperPropietario.toDTO(p));
     }
 
     //Lista de Asignaciones de Peajes del Propietario - Bonificacion, Puesto, FechaAsignada
     private Respuesta asignaciones(Propietario p){
-        return new Respuesta("asignaciones", p.getAsignaciones());
+        return new Respuesta("asignaciones", MapperAsignacion.toDTOList(p.getAsignaciones()));
     }
 
     //Vehiculos del Propietario - Matricula, Modelo, Color, Transitos, MontoTotal
     private Respuesta vehiculos(Propietario p){
-        return new Respuesta("vehiculos", p.obtenerInfoVehiculos());
+        return new Respuesta("vehiculos", MapperInfoVehiculo.toDTOList(p.obtenerInfoVehiculos()));
     }
 
     //SE PUEDE OPTIMIZAR? 
@@ -47,7 +51,7 @@ public class ControladorTableroPropietario {
 
     //Transitos Realizados - Puesto, Matricula, Tarifa, MontoTarifa, Bonificacion, MontoBonificacion, MontoPagado, Fecha, Hora
     private Respuesta transitosRealizados(Propietario p){
-        return new Respuesta("transitosRealizados", p.obtenerRegistros());
+        return new Respuesta("transitosRealizados", MapperRegistro.toDTO(p.getRegistros()));
     }
 
 

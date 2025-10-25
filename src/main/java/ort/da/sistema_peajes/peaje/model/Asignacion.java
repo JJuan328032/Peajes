@@ -17,7 +17,7 @@ public class Asignacion {
 	}
 
 	public String getBonificacionNombre() {
-		return null;
+		return this.bonificacion.getNombre();
 	}
 
 	public Date getFecha() {

@@ -2,6 +2,7 @@ package ort.da.sistema_peajes.peaje.datos;
 
 import ort.da.sistema_peajes.peaje.model.Usuarios.Usuario;
 import ort.da.sistema_peajes.peaje.model.Usuarios.Propietario;
+import ort.da.sistema_peajes.peaje.dto.PropietarioDTO;
 import ort.da.sistema_peajes.peaje.exceptions.EstadoException;
 import ort.da.sistema_peajes.peaje.model.Usuarios.Administrador;
 
@@ -33,17 +34,6 @@ public class SistemaUsuarios {
 		return administrador;
 	}
 
-	private <T extends Usuario> T login(String usuario, String password, ArrayList<T> lista) throws LoginException, EstadoException{
-		for (T u : lista) 
-			if (u.validarCredenciales(usuario, password)) {
-				u.Validar();
-				return u;
-			}
-
-		throw new LoginException("Algo salió mal...");
-	}
-
-
     public void agregarAdministrador(String user, String pass, String nombreCompleto) {
         this.administradores.add(new Administrador(user, pass, nombreCompleto));
     }
@@ -52,5 +42,23 @@ public class SistemaUsuarios {
     public void agregarPropietario(String user, String pass, String nombreCompleto) {
         this.propietarios.add(new Propietario(user, pass, nombreCompleto));
     }
+
+
+	private <T extends Usuario> T login(String usuario, String password, ArrayList<T> lista) throws LoginException, EstadoException{
+
+		T u = buscarUsuario(new PropietarioDTO(usuario, password), lista);
+		u.Validar();
+
+		return u;
+	}
+
+	public <T extends Usuario> T buscarUsuario(PropietarioDTO dto, ArrayList<T> lista) throws LoginException, EstadoException{
+		for (T u : lista) 
+			if (u.validarCredenciales(dto.getUser(), dto.getPass())) {
+				return u;
+			}
+
+		throw new LoginException("Algo salió mal...");
+	}
 
 }

@@ -31,11 +31,11 @@ public class SeedData {
 
     private static void cargarUsuarios() {
         // Administradores
-        fachada.agregarAdministrador("admin1", "admin123", "Juan Pérez");
+        fachada.agregarAdministrador("a", "a", "Juan Pérez");
         fachada.agregarAdministrador("admin2", "admin456", "María González");
         
         // Propietarios
-        fachada.agregarPropietario("prop1", "prop123", "Carlos Rodríguez");
+        fachada.agregarPropietario("p", "p", "Carlos Rodríguez");
         fachada.agregarPropietario("prop2", "prop456", "Ana Martínez");
         fachada.agregarPropietario("prop3", "prop789", "Luis García");
     }

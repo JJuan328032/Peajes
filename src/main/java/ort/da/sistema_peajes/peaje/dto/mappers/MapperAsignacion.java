@@ -7,20 +7,19 @@ import ort.da.sistema_peajes.peaje.model.Asignacion;
 
 public class MapperAsignacion {
 
+    public static AsignacionDTO toDTO(Asignacion asignacion) {
+        return new AsignacionDTO(asignacion.getPuestoNombre(), asignacion.getBonificacionNombre(), asignacion.getFecha());
+    }
+
     public static ArrayList<AsignacionDTO> toDTOList(ArrayList<Asignacion> asignaciones) {
         ArrayList<AsignacionDTO> dtoList = new ArrayList<>();
 
         for (Asignacion a : asignaciones) {
-            // Suponiendo que hay una clase MapperAsignacionDTO para mapear cada Asignacion a su DTO
-            AsignacionDTO dto = new AsignacionDTO(a.getPuestoNombre(), a.getBonificacionNombre(), a.getFecha());
-            dtoList.add(dto);
+            dtoList.add(toDTO(a));
         }
 
         return dtoList;
     }
 
-    public static AsignacionDTO toDTO(Asignacion asignacion) {
-        return new AsignacionDTO(asignacion.getPuestoNombre(), asignacion.getBonificacionNombre(), asignacion.getFecha());
-    }
 
 }

@@ -9,11 +9,10 @@ import java.util.ArrayList;
 
 import javax.security.auth.login.LoginException;
 
-import ort.da.sistema_peajes.peaje.dto.PropietarioDTO;
-import ort.da.sistema_peajes.peaje.dto.RegistroDTO;
-import ort.da.sistema_peajes.peaje.dto.VehiculoDTO;
+
 import ort.da.sistema_peajes.peaje.exceptions.EstadoException;
 import ort.da.sistema_peajes.peaje.model.Asignacion;
+import ort.da.sistema_peajes.peaje.model.InfoVehiculo;
 
 public class Propietario extends Usuario {
 
@@ -41,7 +40,7 @@ public class Propietario extends Usuario {
 
     //usado para mostrar el tipo de estado en tablero CU Tablero de control del propietario
     public String getEstado() {
-        return null;
+        return "Por Hacer";
     }
 
     public int getSaldo() {
@@ -101,19 +100,19 @@ public class Propietario extends Usuario {
 
 
 
-    public ArrayList<VehiculoDTO> obtenerInfoVehiculos(){
-        ArrayList<VehiculoDTO> listaDTO = new ArrayList<>();
+    public ArrayList<InfoVehiculo> obtenerInfoVehiculos(){
+        ArrayList<InfoVehiculo> lista = new ArrayList<>();
 
         for (Vehiculo v : this.vehiculo) {
-            listaDTO.add(obtenerRegistrosPorVehiculo(v));
+            lista.add(obtenerRegistrosPorVehiculo(v));
         }
 
-        return listaDTO;
+        return lista;
     }
 
 
     //cuantos registros existen de determinado vehiculo, guardar cantidad y monto total
-	private VehiculoDTO obtenerRegistrosPorVehiculo(Vehiculo v) {
+	private InfoVehiculo obtenerRegistrosPorVehiculo(Vehiculo v) {
 		int contador = 0;
 		double montoTotal = 0.0;
 
@@ -123,34 +122,10 @@ public class Propietario extends Usuario {
 				montoTotal += r.getMontoPagado();
 			}
 		}
-
-		return new VehiculoDTO(v.getMatricula(), v.getModelo(), v.getColor(), contador, montoTotal);
+        
+		return new InfoVehiculo(v, contador, montoTotal);
 	}
 
+    
 
-    public ArrayList<RegistroDTO> obtenerRegistros() {
-
-        ArrayList<RegistroDTO> listaDTO = new ArrayList<>();
-
-        for(Registro r : this.registros) {
-            listaDTO.add(new RegistroDTO(
-                r.getPuestoNombre(),
-                r.getMatricula(),
-                r.getTipoTarifa(),
-                r.getMontoTarifa(),
-                r.getTipoBonificacion(),
-                r.getMontoBonificacion(),
-                r.getMontoPagado(),
-                r.getFecha(),
-                r.getHora()
-            ));
-        }
-
-        return listaDTO;
-    }
-
-
-    public PropietarioDTO mandarDatos() {
-        return new PropietarioDTO(getNombreCompleto(), getEstado(), getSaldo());
-    }
 }

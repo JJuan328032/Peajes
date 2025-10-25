@@ -26,4 +26,33 @@ public class RegistroDTO {
         this.fecha = fecha;
         this.hora = hora;
     }
+
+    public String getPuesto() {
+        return puesto;
+    }
+    public String getMatricula() {
+        return matricula;
+    }
+    public String getTarifa() {
+        return tarifa;
+    }
+    public int getMontoTarifa() {
+        return montoTarifa;
+    }
+    public String getBonificacion() {
+        return bonificacion;
+    }
+    public int getMontoBonificacion() {
+        return montoBonificacion;
+    }
+    public int getMontoPagado() {
+        return montoPagado;
+    }
+    public Date getFecha() {
+        return fecha;
+    }
+    public Time getHora() {
+        return hora;
+    }
+    
 }

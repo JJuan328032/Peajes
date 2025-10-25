@@ -11,7 +11,6 @@ import ort.da.sistema_peajes.peaje.model.Usuarios.Administrador;
 import ort.da.sistema_peajes.peaje.model.Usuarios.Propietario;
 import ort.da.sistema_peajes.peaje.model.Usuarios.Usuario;
 
-import ort.da.sistema_peajes.peaje.service.LoginUsuario;
 
 public class Fachada {
 
@@ -58,5 +57,6 @@ public class Fachada {
     public void agregarPropietario(String user, String pass, String nombreCompleto) {
         sistemaUsuarios.agregarPropietario(user, pass, nombreCompleto);
     }
+
 
 }

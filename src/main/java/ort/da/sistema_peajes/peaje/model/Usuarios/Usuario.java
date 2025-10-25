@@ -24,8 +24,7 @@ public abstract class Usuario {
 		return this.nombreCompleto;
 	}
 
-    public boolean validarCredenciales(String usuario, String password) throws EstadoException{
+    public boolean validarCredenciales(String usuario, String password) throws EstadoException, LoginException{
 		return this.usuario.equals(usuario) && this.password.equals(password);
 	}
-
 }

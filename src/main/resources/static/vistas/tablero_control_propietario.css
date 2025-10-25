@@ -13,13 +13,22 @@ body {
     font-family: Segoe UI, Roboto, Arial, sans-serif;
     background: var(--color-bg);
     min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 2rem;
 }
 
 /* Layout principal */
 .tablero-container {
     max-width: 1200px;
+    width: 90%;
     margin: 0 auto;
     padding: var(--spacing);
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    border: 1px solid #ddd;
 }
 
 /* Secciones comunes */
