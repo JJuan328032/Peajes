@@ -23,4 +23,5 @@ public class Administrador extends Usuario {
         this.logged = status;
     }
 
+
 }

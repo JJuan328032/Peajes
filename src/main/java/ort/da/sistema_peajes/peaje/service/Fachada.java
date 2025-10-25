@@ -59,6 +59,10 @@ public class Fachada {
         return sistemaUsuarios.agregarPropietario(user, pass, nombreCompleto);
     }
 
+    public void logoutAdmin(Administrador a) {
+        sistemaUsuarios.logoutAdmin(a);
+    }
+
 
 	
 

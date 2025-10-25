@@ -63,4 +63,9 @@ public class SistemaUsuarios {
 		throw new LoginException("Algo salió mal...");
 	}
 
+
+    public void logoutAdmin(Administrador a) {
+        a.setLogged(false);
+    }
+
 }

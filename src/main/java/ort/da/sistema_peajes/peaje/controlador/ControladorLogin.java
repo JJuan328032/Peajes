@@ -41,4 +41,16 @@ public class ControladorLogin {
         sesionHttp.setAttribute("administrador", a);
         return Respuesta.lista(new Respuesta("LoginExitoso", "menu_administrador.html"));
     }
+
+    @PostMapping("/salirAdministrador")
+    public List<Respuesta> salirAdministrador(HttpSession sesionHttp){
+        // Lógica para autenticar al propietario
+        Administrador a = (Administrador) sesionHttp.getAttribute("administrador");
+        if(a!=null){
+            Fachada.getInstancia().logoutAdmin(a);
+            sesionHttp.removeAttribute("administrador");
+        }
+
+        return Respuesta.lista(new Respuesta("LogoutExitoso", "login_administrador.html"));
+    }
 }
