@@ -1,11 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Panel de Administración</title>
+    <link rel="stylesheet" href="menu_administrador.css">
 </head>
 <body>
-    <h1>Menú Administrador</h1>
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <h2><a href="menu_administrador.html" style="text-decoration: none; color: inherit;">Sistema de Peajes</a></h2>
+        <ul class="nav-links">
+            <li><a href="asignar_bonificacion.html">Asignar Bonificación</a></li>
+            <li><a href="emular_transito.html">Emular Tránsito</a></li>
+            <li><a href="cambiar_estado.html">Cambiar Estado</a></li>
+        </ul>
+    </nav>
+
+    <!-- Contenido principal -->
+    <main class="main-content">
+        <section class="welcome-section">
+            <h1>¡Bienvenido al Panel de Administración!</h1>
+            <p>Desde aquí podrás gestionar todos los aspectos del sistema de peajes.</p>
+        </section>
+
+        <section class="instructions">
+            <h3>Funcionalidades Disponibles</h3>
+            <ul class="feature-list">
+                <li>
+                    <span class="feature-title">Asignar Bonificación</span>
+                    <p>Gestiona las bonificaciones para los propietarios de vehículos. Puedes asignar diferentes tipos de descuentos según las políticas establecidas.</p>
+                </li>
+                <li>
+                    <span class="feature-title">Emular Tránsito</span>
+                    <p>Simula el paso de vehículos por los puestos de peaje para pruebas y verificación del sistema.</p>
+                </li>
+                <li>
+                    <span class="feature-title">Cambiar Estado</span>
+                    <p>Modifica el estado de los diferentes elementos del sistema, como puestos de peaje o bonificaciones activas.</p>
+                </li>
+            </ul>
+        </section>
+    </main>
 </body>
 </html>
