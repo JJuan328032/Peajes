@@ -71,15 +71,16 @@ public class SeedData {
         sistemaRegistro.agregarRegistro(r1);
         prop1.agregarRegistro(r1);
 
-        System.out.println("Primer Registro: " + r1);
+        //System.out.println("Primer Registro: " + r1);
 
         Registro r2 = new Registro(peaje1, v2, LocalDate.of(2025, 10, 27), LocalTime.of(8, 30), tCamioneta);
+        r2.setBonificacion(bonTrabajador);
         r2.setMontoBonificado(0);
         r2.setMontoPagado(tCamioneta.getMonto());
         sistemaRegistro.agregarRegistro(r2);
         prop1.agregarRegistro(r2);
 
-        System.out.println("Segundo Registro: " + r2);
+        //System.out.println("Segundo Registro: " + r2);
 
         Registro r3 = new Registro(peaje2, v3, LocalDate.of(2025, 10, 28), LocalTime.of(8, 20), tAuto);
         r3.setBonificacion(bonTrabajador);
@@ -88,23 +89,25 @@ public class SeedData {
         sistemaRegistro.agregarRegistro(r3);
         prop2.agregarRegistro(r3);
 
-        System.out.println("Tercer Registro: " + r3);
+        //System.out.println("Tercer Registro: " + r3);
 
         Registro r4 = new Registro(peaje2, v4, LocalDate.of(2025, 10, 29), LocalTime.of(8, 42), tMoto);
+        r4.setBonificacion(bonFrecuente);
         r4.setMontoBonificado(0);
         r4.setMontoPagado(tMoto.getMonto());
         sistemaRegistro.agregarRegistro(r4);
         prop2.agregarRegistro(r4);
 
-        System.out.println("Cuarto Registro: " + r4);
+        //System.out.println("Cuarto Registro: " + r4);
 
         Registro r5 = new Registro(peaje1, v1, LocalDate.of(2025, 10, 30), LocalTime.of(8, 10), tAuto);
+        r5.setBonificacion(bonTrabajador);
         r5.setMontoBonificado(10);
         r5.setMontoPagado(tAuto.getMonto() - 10);
         sistemaRegistro.agregarRegistro(r5);
         prop1.agregarRegistro(r5);
 
-        System.out.println("Quinto Registro: " + r5);
+        //System.out.println("Quinto Registro: " + r5);
 
         // Agregar notificaciones
         prop1.agregarNotificacion("Se asignó bonificación Frecuente al Peaje Ruta 1");

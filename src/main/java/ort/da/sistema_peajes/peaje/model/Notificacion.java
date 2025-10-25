@@ -5,6 +5,7 @@ import java.time.LocalDate;
 public class Notificacion {
     private LocalDate fecha;
     private String mensaje;
+    
 
     public Notificacion(String mensaje) {
         this.fecha = LocalDate.now();

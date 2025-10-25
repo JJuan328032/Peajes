@@ -117,7 +117,6 @@ public class Propietario extends Usuario {
         return lista;
     }
 
-
     //cuantos registros existen de determinado vehiculo, guardar cantidad y monto total
 	private InfoVehiculo obtenerRegistrosPorVehiculo(Vehiculo v) {
 		int contador = 0;

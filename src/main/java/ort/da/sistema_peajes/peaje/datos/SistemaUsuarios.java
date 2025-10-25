@@ -10,8 +10,6 @@ import java.util.ArrayList;
 
 import javax.security.auth.login.LoginException;
 
-import org.springframework.aop.framework.ProxyProcessorSupport;
-
 
 public class SistemaUsuarios {
 
@@ -50,7 +48,6 @@ public class SistemaUsuarios {
 
 
 	private <T extends Usuario> T login(String usuario, String password, ArrayList<T> lista) throws LoginException, EstadoException{
-
 		T u = buscarUsuario(new PropietarioDTO(usuario, password), lista);
 		u.Validar();
 
@@ -65,24 +62,5 @@ public class SistemaUsuarios {
 
 		throw new LoginException("Algo salió mal...");
 	}
-
-
-    public Propietario buscarPropietario(Propietario prop) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'buscarPropietario'");
-    }
-
-
-	/* 
-    public Propietario obtenerPropietario(String user, String pass) throws EstadoException, LoginException {
-        for(Propietario p : this.propietarios) {
-			if(p.validarCredenciales(user, pass)) {
-				return p;
-			}
-		}
-
-		return null;
-    }
-	*/
 
 }

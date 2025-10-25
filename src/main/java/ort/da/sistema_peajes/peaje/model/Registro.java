@@ -78,10 +78,9 @@ public class Registro {
         return this.montoTarifa;
     }
 
-    //Durante la precarga, aunque los datos no esten nulos, sin esta verificacion hay error 500
-    //Igualmente muestra todos los datos existenes, así que no se generaron errores a partir de la precarga
+    
     public String getNombreBonificacion() {
-        if( bonificacion == null) {
+        if (this.bonificacion == null) {
             return "Ninguna";
         }
 
