@@ -7,6 +7,7 @@ import ort.da.sistema_peajes.peaje.datos.SistemaRegistro;
 import ort.da.sistema_peajes.peaje.datos.SistemaVehiculos;
 import ort.da.sistema_peajes.peaje.exceptions.EstadoException;
 import ort.da.sistema_peajes.peaje.datos.SistemaUsuarios;
+import ort.da.sistema_peajes.peaje.model.Vehiculo;
 import ort.da.sistema_peajes.peaje.model.Usuarios.Administrador;
 import ort.da.sistema_peajes.peaje.model.Usuarios.Propietario;
 import ort.da.sistema_peajes.peaje.model.Usuarios.Usuario;
@@ -54,9 +55,11 @@ public class Fachada {
 		sistemaUsuarios.agregarAdministrador(user, pass, nombreCompleto);
 	}
 
-    public void agregarPropietario(String user, String pass, String nombreCompleto) {
-        sistemaUsuarios.agregarPropietario(user, pass, nombreCompleto);
+    public Propietario agregarPropietario(String user, String pass, String nombreCompleto) {
+        return sistemaUsuarios.agregarPropietario(user, pass, nombreCompleto);
     }
 
+
+	
 
 }

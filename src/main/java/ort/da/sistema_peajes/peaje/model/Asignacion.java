@@ -1,6 +1,6 @@
 package ort.da.sistema_peajes.peaje.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 import ort.da.sistema_peajes.peaje.model.Bonificacion.Bonificacion;
 
 public class Asignacion {
@@ -9,7 +9,13 @@ public class Asignacion {
 
 	private Bonificacion bonificacion;
 
-	private Date fecha;
+	private LocalDate fecha;
+
+	public Asignacion(Puesto puesto, Bonificacion bonificacion, LocalDate fecha) {
+		this.puesto = puesto;
+		this.bonificacion = bonificacion;
+		this.fecha = fecha;
+	}
 
 
 	public String getPuestoNombre() {
@@ -20,7 +26,7 @@ public class Asignacion {
 		return this.bonificacion.getNombre();
 	}
 
-	public Date getFecha() {
+	public LocalDate getFecha() {
 		return this.fecha;
 	}
 

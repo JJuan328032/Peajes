@@ -39,4 +39,8 @@ public class Puesto {
 	public ArrayList<Bonificacion> getBonificaciones() {
 		return bonificaciones;
 	}
+
+    public void setTarifas(ArrayList<Tarifa> nuevasTarifas) {
+        this.tarifas.addAll(nuevasTarifas);
+    }
 }

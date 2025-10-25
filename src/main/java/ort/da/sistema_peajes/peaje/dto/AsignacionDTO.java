@@ -1,14 +1,14 @@
 package ort.da.sistema_peajes.peaje.dto;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 
 public class AsignacionDTO {
     private String puesto;
 	private String bonificacion;
-	private Date fecha;
+	private LocalDate fecha;
 
-	public AsignacionDTO(String puesto, String bonificacion, Date fecha) {
+	public AsignacionDTO(String puesto, String bonificacion, LocalDate fecha) {
 		this.puesto = puesto;
 		this.bonificacion = bonificacion;
 		this.fecha = fecha;
@@ -20,7 +20,7 @@ public class AsignacionDTO {
 	public String getBonificacion() {
 		return bonificacion;
 	}
-	public Date getFecha() {
+	public LocalDate getFecha() {
 		return fecha;
 	}
 }

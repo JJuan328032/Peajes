@@ -13,6 +13,7 @@ import javax.security.auth.login.LoginException;
 import ort.da.sistema_peajes.peaje.exceptions.EstadoException;
 import ort.da.sistema_peajes.peaje.model.Asignacion;
 import ort.da.sistema_peajes.peaje.model.InfoVehiculo;
+import ort.da.sistema_peajes.peaje.model.Notificacion;
 
 public class Propietario extends Usuario {
 
@@ -20,18 +21,20 @@ public class Propietario extends Usuario {
 
 	private int saldoMinimo;
 
-	private ArrayList<Vehiculo> vehiculo;
+	private ArrayList<Vehiculo> vehiculos;
 	private ArrayList<Registro> registros;
-	private ArrayList<Asignacion> asignacion;
+	private ArrayList<Asignacion> asignaciones;
+    private ArrayList<Notificacion> notificaciones;
 
 	private EstadoPropietario estadoPropietario;
 
 
 	public Propietario(String cedula, String password, String nombreCompleto) {
         super(cedula, password, nombreCompleto);
-        this.vehiculo = new ArrayList<>();
+        this.vehiculos = new ArrayList<>();
         this.registros = new ArrayList<>();
-        this.asignacion = new ArrayList<>();
+        this.asignaciones = new ArrayList<>();
+        this.notificaciones = new ArrayList<>();
         this.saldo = 0;
         this.saldoMinimo = 1000;
         this.estadoPropietario = new Habilitado(this);
@@ -60,7 +63,7 @@ public class Propietario extends Usuario {
     }
 
     public ArrayList<Vehiculo> getVehiculos() {
-        return this.vehiculo;
+        return this.vehiculos;
     }
 
     public ArrayList<Registro> getRegistros() {
@@ -68,7 +71,7 @@ public class Propietario extends Usuario {
     }
 
     public ArrayList<Asignacion> getAsignaciones() {
-        return this.asignacion;
+        return this.asignaciones;
     }
 
     public EstadoPropietario getEstadoPropietario() {
@@ -80,7 +83,7 @@ public class Propietario extends Usuario {
     }
 
     public void agregarVehiculo(Vehiculo v) {
-        this.vehiculo.add(v);
+        this.vehiculos.add(v);
     }
 
     public void agregarRegistro(Registro r) {
@@ -88,7 +91,11 @@ public class Propietario extends Usuario {
     }
 
     public void agregarAsignacion(Asignacion a) {
-        this.asignacion.add(a);
+        this.asignaciones.add(a);
+    }
+
+    public void agregarNotificacion(String mensaje) {
+        notificaciones.add(new Notificacion(mensaje));
     }
 
 
@@ -103,7 +110,7 @@ public class Propietario extends Usuario {
     public ArrayList<InfoVehiculo> obtenerInfoVehiculos(){
         ArrayList<InfoVehiculo> lista = new ArrayList<>();
 
-        for (Vehiculo v : this.vehiculo) {
+        for (Vehiculo v : this.vehiculos) {
             lista.add(obtenerRegistrosPorVehiculo(v));
         }
 

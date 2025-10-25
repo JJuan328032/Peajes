@@ -5,9 +5,10 @@ import ort.da.sistema_peajes.peaje.model.*;
 import ort.da.sistema_peajes.peaje.model.Usuarios.*;
 import ort.da.sistema_peajes.peaje.service.Fachada;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Date;
+
 
 /**
  * Clase para generar datos de prueba representativos para el sistema de peajes.
@@ -18,108 +19,108 @@ public class SeedData {
     private static SistemaPuestos sistemaPuestos = new SistemaPuestos();
     private static SistemaVehiculos sistemaVehiculos = new SistemaVehiculos();
     private static SistemaRegistro sistemaRegistro = new SistemaRegistro();
-    
+
     public static void cargarDatos() {
-        cargarUsuarios();
-        cargarCategoriasVehiculos();
-        cargarVehiculos();
-        cargarPuestos();
-        cargarBonificaciones();
-        //cargarRegistros();
-        System.out.println("Datos de prueba cargados exitosamente");
-    }
+        System.out.println("Cargando datos de prueba...");
 
-    private static void cargarUsuarios() {
-        // Administradores
+        // Crear usuarios
+
+        Propietario prop1 = fachada.agregarPropietario("p", "p", "Carlos Rodríguez");
+        Propietario prop2 = fachada.agregarPropietario("prop2", "prop456", "Ana Martínez");
         fachada.agregarAdministrador("a", "a", "Juan Pérez");
-        fachada.agregarAdministrador("admin2", "admin456", "María González");
-        
-        // Propietarios
-        fachada.agregarPropietario("p", "p", "Carlos Rodríguez");
-        fachada.agregarPropietario("prop2", "prop456", "Ana Martínez");
-        fachada.agregarPropietario("prop3", "prop789", "Luis García");
-    }
 
-    private static void cargarCategoriasVehiculos() {
-        ArrayList<CategoriaVehiculos> categorias = new ArrayList<>();
-        categorias.add(new CategoriaVehiculos("Automóvil"));
-        categorias.add(new CategoriaVehiculos("Camioneta"));
-        categorias.add(new CategoriaVehiculos("Camión"));
-        categorias.add(new CategoriaVehiculos("Ómnibus"));
-        categorias.add(new CategoriaVehiculos("Moto"));
-    }
+        // Crear bonificaciones
+        Bonificacion bonFrecuente = new Descuento(20, "Frecuente");
+        Bonificacion bonTrabajador = new Descuento(50, "Trabajador");
 
-    private static void cargarVehiculos() {
-        // Ejemplos de vehículos con diferentes categorías
+        // Crear puestos con tarifas
+        Puesto peaje1 = new Puesto("Peaje Ruta 1", "Km 56 Ruta 1");
+        Puesto peaje2 = new Puesto("Peaje Ruta 5", "Km 98 Ruta 5");
+
+        agregarTarifas(peaje1);
+        agregarTarifas(peaje2);
+        sistemaPuestos.agregarPuesto(peaje1);
+        sistemaPuestos.agregarPuesto(peaje2);
+
+        // Asignar bonificaciones a propietarios
+        Asignacion asig1 = new Asignacion(peaje1, bonFrecuente, LocalDate.of(2025, 1, 1));
+        Asignacion asig2 = new Asignacion(peaje2, bonTrabajador, LocalDate.of(2025, 1, 2));
+        prop1.getAsignaciones().add(asig1);
+        prop2.getAsignaciones().add(asig2);
+
+        // Crear vehículos
         Vehiculo v1 = new Vehiculo("ABC123", "Toyota Corolla", "Rojo", "Automóvil");
         Vehiculo v2 = new Vehiculo("DEF456", "Ford Ranger", "Blanco", "Camioneta");
-        Vehiculo v3 = new Vehiculo("GHI789", "Volvo FH", "Azul", "Camión");
-        Vehiculo v4 = new Vehiculo("JKL012", "Mercedes Sprinter", "Gris", "Ómnibus");
-        Vehiculo v5 = new Vehiculo("MNO345", "Honda CBR", "Negro", "Moto");
+        Vehiculo v3 = new Vehiculo("GHI789", "Honda Civic", "Azul", "Automóvil");
+        Vehiculo v4 = new Vehiculo("JKL012", "Yamaha MT-07", "Negro", "Moto");
 
-        sistemaVehiculos.agregarVehiculo(v1);
-        sistemaVehiculos.agregarVehiculo(v2);
-        sistemaVehiculos.agregarVehiculo(v3);
-        sistemaVehiculos.agregarVehiculo(v4);
-        sistemaVehiculos.agregarVehiculo(v5);
-    }
+        prop1.agregarVehiculo(v1);
+        prop1.agregarVehiculo(v2);
+        prop2.agregarVehiculo(v3);
+        prop2.agregarVehiculo(v4);
 
-    private static void cargarPuestos() {
-        // Puestos de peaje con diferentes ubicaciones y tarifas
-        Puesto p1 = new Puesto("Peaje Ruta 1", "Km 56 Ruta 1");
-        Puesto p2 = new Puesto("Peaje Ruta 5", "Km 98 Ruta 5");
-        Puesto p3 = new Puesto("Peaje Ruta 8", "Km 23 Ruta 8");
-        Puesto p4 = new Puesto("Peaje Interbalnearia", "Km 45 Ruta IB");
+        // Crear registros (tránsitos)
+        Tarifa tAuto = peaje1.getTarifas().get(0);
+        Tarifa tCamioneta = peaje1.getTarifas().get(1);
+        Tarifa tMoto = peaje2.getTarifas().get(4);
 
-        // Agregar tarifas por categoría para cada puesto
-        agregarTarifas(p1);
-        agregarTarifas(p2);
-        agregarTarifas(p3);
-        agregarTarifas(p4);
+        Registro r1 = new Registro(peaje1, v1, LocalDate.of(2025, 10, 26), LocalTime.of(8, 15), tAuto);
+        r1.setBonificacion(bonFrecuente);
+        r1.setMontoBonificado(20);
+        r1.setMontoPagado(tAuto.getMonto() - 20);
+        sistemaRegistro.agregarRegistro(r1);
+        prop1.agregarRegistro(r1);
 
-        sistemaPuestos.agregarPuesto(p1);
-        sistemaPuestos.agregarPuesto(p2);
-        sistemaPuestos.agregarPuesto(p3);
-        sistemaPuestos.agregarPuesto(p4);
+        System.out.println("Primer Registro: " + r1);
+
+        Registro r2 = new Registro(peaje1, v2, LocalDate.of(2025, 10, 27), LocalTime.of(8, 30), tCamioneta);
+        r2.setMontoBonificado(0);
+        r2.setMontoPagado(tCamioneta.getMonto());
+        sistemaRegistro.agregarRegistro(r2);
+        prop1.agregarRegistro(r2);
+
+        System.out.println("Segundo Registro: " + r2);
+
+        Registro r3 = new Registro(peaje2, v3, LocalDate.of(2025, 10, 28), LocalTime.of(8, 20), tAuto);
+        r3.setBonificacion(bonTrabajador);
+        r3.setMontoBonificado(50);
+        r3.setMontoPagado(tAuto.getMonto() - 50);
+        sistemaRegistro.agregarRegistro(r3);
+        prop2.agregarRegistro(r3);
+
+        System.out.println("Tercer Registro: " + r3);
+
+        Registro r4 = new Registro(peaje2, v4, LocalDate.of(2025, 10, 29), LocalTime.of(8, 42), tMoto);
+        r4.setMontoBonificado(0);
+        r4.setMontoPagado(tMoto.getMonto());
+        sistemaRegistro.agregarRegistro(r4);
+        prop2.agregarRegistro(r4);
+
+        System.out.println("Cuarto Registro: " + r4);
+
+        Registro r5 = new Registro(peaje1, v1, LocalDate.of(2025, 10, 30), LocalTime.of(8, 10), tAuto);
+        r5.setMontoBonificado(10);
+        r5.setMontoPagado(tAuto.getMonto() - 10);
+        sistemaRegistro.agregarRegistro(r5);
+        prop1.agregarRegistro(r5);
+
+        System.out.println("Quinto Registro: " + r5);
+
+        // Agregar notificaciones
+        prop1.agregarNotificacion("Se asignó bonificación Frecuente al Peaje Ruta 1");
+        prop1.agregarNotificacion("Nuevo tránsito registrado en Peaje Ruta 1 con vehículo ABC123");
+        prop2.agregarNotificacion("Se asignó bonificación Trabajador al Peaje Ruta 5");
+
+        System.out.println("Datos de prueba cargados exitosamente.");
     }
 
     private static void agregarTarifas(Puesto puesto) {
         ArrayList<Tarifa> tarifas = new ArrayList<>();
-        tarifas.add(new Tarifa("Tarifa Básica", 100, "Automóvil"));
-        tarifas.add(new Tarifa("Tarifa Básica", 150, "Camioneta"));
-        tarifas.add(new Tarifa("Tarifa Básica", 300, "Camión"));
-        tarifas.add(new Tarifa("Tarifa Básica", 250, "Ómnibus"));
-        tarifas.add(new Tarifa("Tarifa Básica", 50, "Moto"));
-        // Asignar tarifas al puesto
+        tarifas.add(new Tarifa("Automóvil", 100, "Automóvil"));
+        tarifas.add(new Tarifa("Camioneta", 150, "Camioneta"));
+        tarifas.add(new Tarifa("Camión", 300, "Camión"));
+        tarifas.add(new Tarifa("Ómnibus", 250, "Ómnibus"));
+        tarifas.add(new Tarifa("Moto", 50, "Moto"));
+        puesto.setTarifas(tarifas);
     }
-
-    private static void cargarBonificaciones() {
-        // Diferentes tipos de bonificaciones
-        Bonificacion frecuente = new Descuento(20, "Usuario Frecuente");
-        Bonificacion trabajador = new Descuento(50, "Trabajador");
-        // Las bonificaciones se asignarán a los vehículos según corresponda
-    }
-
-    /* 
-    private static void cargarRegistros() {
-        // Ejemplos de registros de paso por peajes
-        LocalDateTime fecha = LocalDateTime.now();
-        
-        Registro r1 = new Registro(
-            sistemaPuestos.getPuestos().get(0),
-            sistemaVehiculos.getVehiculos().get(0),
-            fecha,
-            tarifas.get(0)
-        );
-        
-        Registro r2 = new Registro(
-            sistemaPuestos.getPuestos().get(1),
-            sistemaVehiculos.getVehiculos().get(1),
-            fecha
-        );
-
-        sistemaRegistro.agregarRegistro(r1);
-        sistemaRegistro.agregarRegistro(r2);
-    }
-        */
 }

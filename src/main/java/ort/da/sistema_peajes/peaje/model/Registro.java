@@ -1,14 +1,16 @@
 package ort.da.sistema_peajes.peaje.model;
 
-import java.sql.Date;
-import java.sql.Time;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 import ort.da.sistema_peajes.peaje.model.Bonificacion.Bonificacion;
 
 public class Registro {
     private Puesto puesto;
     private Vehiculo vehiculo;
-    private Date fecha;
-    private Time hora;
+    private LocalDate fecha;
+    private LocalTime hora;
     
     private String tarifa;
     private int montoTarifa;
@@ -18,7 +20,7 @@ public class Registro {
 
     private int montoPagado;
 
-    public Registro(Puesto puesto, Vehiculo vehiculo, Date fecha, Time hora, Tarifa tarifa) {
+    public Registro(Puesto puesto, Vehiculo vehiculo, LocalDate fecha, LocalTime hora, Tarifa tarifa) {
         this.puesto = puesto;
         this.vehiculo = vehiculo;
         this.fecha = fecha;
@@ -26,6 +28,7 @@ public class Registro {
         this.tarifa = tarifa.getTipo();
         this.montoTarifa = tarifa.getMonto();
     }
+
 
     public Puesto getPuesto() {
         return puesto;
@@ -35,11 +38,11 @@ public class Registro {
         return vehiculo;
     }
 
-    public Date getFecha() {
+    public LocalDate getFecha() {
         return fecha;
     }
 
-    public Time getHora(){
+    public LocalTime getHora(){
         return this.hora; 
     }
 
@@ -75,7 +78,13 @@ public class Registro {
         return this.montoTarifa;
     }
 
-    public String getTipoBonificacion() {
+    //Durante la precarga, aunque los datos no esten nulos, sin esta verificacion hay error 500
+    //Igualmente muestra todos los datos existenes, así que no se generaron errores a partir de la precarga
+    public String getNombreBonificacion() {
+        if( bonificacion == null) {
+            return "Ninguna";
+        }
+
         return this.bonificacion.getNombre();
     }
 
@@ -85,5 +94,17 @@ public class Registro {
 
     public String getPuestoNombre() {
         return this.puesto.getNombre();
+    }
+
+
+    public void setMontoPagado(int i) {
+        this.montoPagado = i;
+    }
+
+    public String toString() {
+        return "Registro [puesto=" + puesto.getNombre() + ", vehiculo=" + vehiculo.getMatricula() + ", fecha=" + fecha
+                + ", hora=" + hora + ", tarifa=" + tarifa + ", montoTarifa=" + montoTarifa + ", montoBonificado="
+                + montoBonificado + ", bonificacion=" + (bonificacion != null ? bonificacion.getNombre() : "N/A") 
+                + ", montoPagado=" + montoPagado + "]";
     }
 }
