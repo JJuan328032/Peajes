@@ -1,5 +1,8 @@
 package ort.da.sistema_peajes.peaje.service;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+
 import javax.security.auth.login.LoginException;
 
 import ort.da.sistema_peajes.peaje.datos.SistemaPuestos;
@@ -7,7 +10,9 @@ import ort.da.sistema_peajes.peaje.datos.SistemaRegistro;
 import ort.da.sistema_peajes.peaje.datos.SistemaVehiculos;
 import ort.da.sistema_peajes.peaje.exceptions.EstadoException;
 import ort.da.sistema_peajes.peaje.datos.SistemaUsuarios;
-import ort.da.sistema_peajes.peaje.model.Vehiculo;
+import ort.da.sistema_peajes.peaje.model.InfoTransito;
+import ort.da.sistema_peajes.peaje.model.Puesto;
+import ort.da.sistema_peajes.peaje.model.Tarifa;
 import ort.da.sistema_peajes.peaje.model.Usuarios.Administrador;
 import ort.da.sistema_peajes.peaje.model.Usuarios.Propietario;
 import ort.da.sistema_peajes.peaje.model.Usuarios.Usuario;
@@ -61,6 +66,19 @@ public class Fachada {
 
     public void logoutAdmin(Administrador a) {
         sistemaUsuarios.logoutAdmin(a);
+    }
+
+    public ArrayList<Tarifa> obtenerTarifasPorPuestoNombre(String nombre) {
+        return sistemaPuestos.obtenerTarifasPorPuestoNombre(nombre);
+    }
+
+	public ArrayList<Puesto> getPuestos() {
+		return sistemaPuestos.getPuestos();
+	}
+
+    public InfoTransito emularTransito(String puesto, String matricula, LocalDateTime fechaHora) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'emularTransito'");
     }
 
 

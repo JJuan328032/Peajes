@@ -30,6 +30,10 @@ public class Vehiculo {
 		return categoria;
 	}
 
+	public String getCategoriaNombre() {
+		return categoria.getNombre();
+	}
+
     public boolean igualPatente(String matricula) {
         return this.matricula.equalsIgnoreCase(matricula);
     }
