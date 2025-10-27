@@ -46,6 +46,9 @@ public class ControladorEmular {
         //Saldo luego del Transito: Propietario.saldo
 
         //Propietario, Vehiculo, Asignacion, int : InfoTransito
+
+        //a partir del vehiculo, obtener tarifa a cobrar. Mandar informacion a cobrar tomando en cuenta que puede existir bonificacion.
+        //Quién es responsable de realizar el transito?
         
         return Respuesta.lista(new Respuesta("transitoEmulado", MapperTransito.toDTO(Fachada.getInstancia().emularTransito(puesto, matricula, fechaHora))));
     }

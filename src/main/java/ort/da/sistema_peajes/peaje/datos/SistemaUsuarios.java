@@ -3,6 +3,7 @@ package ort.da.sistema_peajes.peaje.datos;
 import ort.da.sistema_peajes.peaje.model.Usuarios.Usuario;
 import ort.da.sistema_peajes.peaje.model.Usuarios.Propietario;
 import ort.da.sistema_peajes.peaje.exceptions.EstadoException;
+import ort.da.sistema_peajes.peaje.model.Vehiculo;
 import ort.da.sistema_peajes.peaje.model.Usuarios.Administrador;
 
 import java.util.ArrayList;
@@ -67,5 +68,10 @@ public class SistemaUsuarios {
     public void logoutAdmin(Administrador a) {
         a.setLogged(false);
     }
+
+
+	public void agregarVehiculoPropietario(Vehiculo v, Propietario p) {
+		p.agregarVehiculo(v);
+	}
 
 }

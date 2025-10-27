@@ -43,4 +43,18 @@ public class Puesto {
     public void setTarifas(ArrayList<Tarifa> nuevasTarifas) {
         this.tarifas.addAll(nuevasTarifas);
     }
+
+	public int obtenerMontoTarifaSegunVehiculo(Vehiculo vehiculo) {
+		return this.obtenerTarifaSegunCategoriaVehiculo(vehiculo).getMonto();
+	}
+
+	private Tarifa obtenerTarifaSegunCategoriaVehiculo(Vehiculo vehiculo) {
+		for (Tarifa tarifa : this.tarifas) {
+			if (tarifa.mismaCategoria(vehiculo.getCategoria())) {
+				return tarifa;
+			}
+		}
+
+		return null;
+	}
 }

@@ -13,6 +13,7 @@ import ort.da.sistema_peajes.peaje.datos.SistemaUsuarios;
 import ort.da.sistema_peajes.peaje.model.InfoTransito;
 import ort.da.sistema_peajes.peaje.model.Puesto;
 import ort.da.sistema_peajes.peaje.model.Tarifa;
+import ort.da.sistema_peajes.peaje.model.Vehiculo;
 import ort.da.sistema_peajes.peaje.model.Usuarios.Administrador;
 import ort.da.sistema_peajes.peaje.model.Usuarios.Propietario;
 import ort.da.sistema_peajes.peaje.model.Usuarios.Usuario;
@@ -76,9 +77,18 @@ public class Fachada {
 		return sistemaPuestos.getPuestos();
 	}
 
+	public void asociarVehiculoAPropietario(Vehiculo v, Propietario p) {
+		sistemaVehiculos.asociarVehiculoAPropietario(v, p);
+		sistemaUsuarios.agregarVehiculoPropietario(v, p);
+	}
+
     public InfoTransito emularTransito(String puesto, String matricula, LocalDateTime fechaHora) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'emularTransito'");
+        Vehiculo vehiculo = sistemaVehiculos.obtenerVehiculoPorMatricula(matricula);
+		int tarifaACobrar = sistemaPuestos.obtenerTarifaSegunPuestoYVehiculo(puesto, vehiculo);
+
+		sistemaRegistro.emularTransito(vehiculo, fechaHora, tarifaACobrar);
+
+		return null;
     }
 
 

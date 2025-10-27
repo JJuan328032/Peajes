@@ -1,17 +1,29 @@
 package ort.da.sistema_peajes.peaje.model;
 
+import ort.da.sistema_peajes.peaje.model.Usuarios.Propietario;
+
 public class Vehiculo {
 
+	private Propietario propietario;
 	private String matricula;
 	private String modelo;
 	private String color;
 	private CategoriaVehiculos categoria;
 
 	public Vehiculo(String matricula, String modelo, String color, String nombreCategoria) {
+		this.propietario = null;
 		this.matricula = matricula;
 		this.modelo = modelo;
 		this.color = color;
 		this.categoria = new CategoriaVehiculos(nombreCategoria);
+	}
+
+	public Propietario getPropietario() {
+		return propietario;
+	}
+
+	public void setPropietario(Propietario propietario) {
+		this.propietario = propietario;
 	}
 
 	public String getMatricula() {

@@ -22,4 +22,8 @@ public class Tarifa {
     public String getTipo() {
         return this.tipo;
     }
+
+    public boolean mismaCategoria(CategoriaVehiculos categoria2) {
+        return this.categoria.equals(categoria2);
+    }
 }

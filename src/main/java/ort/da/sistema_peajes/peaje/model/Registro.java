@@ -1,16 +1,14 @@
 package ort.da.sistema_peajes.peaje.model;
 
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 import ort.da.sistema_peajes.peaje.model.Bonificacion.Bonificacion;
 
 public class Registro {
     private Puesto puesto;
     private Vehiculo vehiculo;
-    private LocalDate fecha;
-    private LocalTime hora;
+    private LocalDateTime fecha;
     
     private String tarifa;
     private int montoTarifa;
@@ -20,11 +18,10 @@ public class Registro {
 
     private int montoPagado;
 
-    public Registro(Puesto puesto, Vehiculo vehiculo, LocalDate fecha, LocalTime hora, Tarifa tarifa) {
+    public Registro(Puesto puesto, Vehiculo vehiculo, LocalDateTime fecha, Tarifa tarifa) {
         this.puesto = puesto;
         this.vehiculo = vehiculo;
         this.fecha = fecha;
-        this.hora = hora;
         this.tarifa = tarifa.getTipo();
         this.montoTarifa = tarifa.getMonto();
     }
@@ -38,12 +35,8 @@ public class Registro {
         return vehiculo;
     }
 
-    public LocalDate getFecha() {
+    public LocalDateTime getFecha() {
         return fecha;
-    }
-
-    public LocalTime getHora(){
-        return this.hora; 
     }
 
     public int getMontoBonificado() {
@@ -101,8 +94,8 @@ public class Registro {
     }
 
     public String toString() {
-        return "Registro [puesto=" + puesto.getNombre() + ", vehiculo=" + vehiculo.getMatricula() + ", fecha=" + fecha
-                + ", hora=" + hora + ", tarifa=" + tarifa + ", montoTarifa=" + montoTarifa + ", montoBonificado="
+        return "Registro [puesto=" + puesto.getNombre() + ", vehiculo=" + vehiculo.getMatricula() + ", fecha=" + fecha.toLocalDate()
+                + ", hora=" + fecha.toLocalTime() + ", tarifa=" + tarifa + ", montoTarifa=" + montoTarifa + ", montoBonificado="
                 + montoBonificado + ", bonificacion=" + (bonificacion != null ? bonificacion.getNombre() : "N/A") 
                 + ", montoPagado=" + montoPagado + "]";
     }

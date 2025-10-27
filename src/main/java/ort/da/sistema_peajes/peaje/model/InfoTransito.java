@@ -3,21 +3,17 @@ package ort.da.sistema_peajes.peaje.model;
 import ort.da.sistema_peajes.peaje.model.Usuarios.Propietario;
 
 public class InfoTransito {
-    Propietario propietario;
+    
     Vehiculo vehiculo;
     Asignacion asignacion;
     int montoTransito;
 
-    public InfoTransito(Propietario propietario, Vehiculo vehiculo, Asignacion asignacion, int montoTransito) {
-        this.propietario = propietario;
+    public InfoTransito(Vehiculo vehiculo, Asignacion asignacion, int montoTransito) {
         this.vehiculo = vehiculo;
         this.asignacion = asignacion;
         this.montoTransito = montoTransito;
     }
 
-    public Propietario getPropietario() {
-        return propietario;
-    }
     public Vehiculo getVehiculo() {
         return vehiculo;
     }
@@ -27,4 +23,8 @@ public class InfoTransito {
     public int getMontoTransito() {
         return montoTransito;
     }
+    public Propietario getPropietario() {
+        return this.vehiculo.getPropietario();
+    }
+
 }

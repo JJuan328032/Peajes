@@ -16,8 +16,7 @@ public class MapperRegistro {
             r.getNombreBonificacion(),
             r.getMontoBonificacion(),
             r.getMontoPagado(),
-            r.getFecha(),
-            r.getHora()
+            r.getFecha()
         );
     }
 

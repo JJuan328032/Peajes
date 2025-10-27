@@ -1,7 +1,6 @@
 package ort.da.sistema_peajes.peaje.dto;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 public class RegistroDTO {
     private String puesto;
@@ -11,11 +10,10 @@ public class RegistroDTO {
     private String bonificacion;
     private int montoBonificacion;
     private int montoPagado;
-    private LocalDate fecha;
-    private LocalTime hora;
+    private LocalDateTime fecha;
 
     public RegistroDTO(String puesto, String matricula, String tarifa, int montoTarifa, String bonificacion,
-            int montoBonificacion, int montoPagado, LocalDate fecha, LocalTime hora) {
+            int montoBonificacion, int montoPagado, LocalDateTime fecha) {
         this.puesto = puesto;
         this.matricula = matricula;
         this.tarifa = tarifa;
@@ -24,7 +22,6 @@ public class RegistroDTO {
         this.montoBonificacion = montoBonificacion;
         this.montoPagado = montoPagado;
         this.fecha = fecha;
-        this.hora = hora;
     }
 
     public String getPuesto() {
@@ -48,11 +45,8 @@ public class RegistroDTO {
     public int getMontoPagado() {
         return montoPagado;
     }
-    public LocalDate getFecha() {
+    public LocalDateTime getFecha() {
         return fecha;
-    }
-    public LocalTime getHora() {
-        return hora;
     }
     
 }
