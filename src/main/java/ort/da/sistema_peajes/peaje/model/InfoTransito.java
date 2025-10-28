@@ -4,16 +4,21 @@ import ort.da.sistema_peajes.peaje.model.Usuarios.Propietario;
 
 public class InfoTransito {
     
-    Vehiculo vehiculo;
-    Asignacion asignacion;
-    int montoTransito;
+    private Puesto puesto;
+    private Vehiculo vehiculo;
+    private Asignacion asignacion;
+    private int montoTransito;
 
-    public InfoTransito(Vehiculo vehiculo, Asignacion asignacion, int montoTransito) {
+    public InfoTransito(Puesto puesto, Vehiculo vehiculo, Asignacion asignacion, int montoTransito) {
+        this.puesto = puesto;
         this.vehiculo = vehiculo;
         this.asignacion = asignacion;
         this.montoTransito = montoTransito;
     }
 
+    public Puesto getPuesto(){
+        return this.puesto;
+    }
     public Vehiculo getVehiculo() {
         return vehiculo;
     }

@@ -38,7 +38,7 @@ public class SistemaPuestos {
         return obtenerPuestoPorNombre(nombre).getTarifas();
     }
 
-    public int obtenerTarifaSegunPuestoYVehiculo(String puesto, Vehiculo vehiculo) {
-        return this.obtenerPuestoPorNombre(puesto).obtenerMontoTarifaSegunVehiculo(vehiculo);
+    public Tarifa obtenerTarifaSegunPuestoYVehiculo(String puesto, Vehiculo vehiculo) {
+        return this.obtenerPuestoPorNombre(puesto).obtenerTarifaSegunCategoriaVehiculo(vehiculo);
     }
 }

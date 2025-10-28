@@ -1,8 +1,8 @@
 package ort.da.sistema_peajes.peaje.datos;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+import ort.da.sistema_peajes.peaje.exceptions.VehiculoException;
 import ort.da.sistema_peajes.peaje.model.Vehiculo;
 import ort.da.sistema_peajes.peaje.model.Usuarios.Propietario;
 
@@ -26,9 +26,9 @@ public class SistemaVehiculos {
 		this.vehiculos.addAll(vehiculos);
 	}
 
-	public Vehiculo obtenerVehiculoPorMatricula(String matricula) {
+	public Vehiculo obtenerVehiculoPorMatricula(String matricula) throws VehiculoException{
 		for (Vehiculo vehiculo : vehiculos) if (vehiculo.igualPatente(matricula)) return vehiculo;
-		return null;
+		throw new VehiculoException("No existe el Vehiculo con Matricula: " + matricula);
 	}
 
     public void asociarVehiculoAPropietario(Vehiculo v, Propietario p) {

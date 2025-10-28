@@ -11,9 +11,11 @@ import javax.security.auth.login.LoginException;
 
 
 import ort.da.sistema_peajes.peaje.exceptions.EstadoException;
+import ort.da.sistema_peajes.peaje.exceptions.SaldoException;
 import ort.da.sistema_peajes.peaje.model.Asignacion;
 import ort.da.sistema_peajes.peaje.model.InfoVehiculo;
 import ort.da.sistema_peajes.peaje.model.Notificacion;
+import ort.da.sistema_peajes.peaje.model.Puesto;
 
 public class Propietario extends Usuario {
 
@@ -131,6 +133,54 @@ public class Propietario extends Usuario {
         
 		return new InfoVehiculo(v, contador, montoTotal);
 	}
+
+
+    public Asignacion realizarPago(Registro registro) throws SaldoException, EstadoException{
+        //validar si tengo una bonificacion en el puesto
+        Asignacion a = this.buscarAsignacionSegunPuesto(registro.getPuesto());
+
+        //si la tengo, seteo el montoBonificado previamente inicializado en cero
+        if(a != null) registro.setMontoBonificado(a.calcularMontoBonificado(registro.getMontoTarifa()));
+        
+        validarRealizarTransito(registro.calcularPrecioFinal());
+        registro.setMontoPagado();
+        //modifico Registro desde acá
+        //Hay que completar el nombre de la bonificacion y validar el estado del saldo
+        //Validar por Estado también
+
+        this.agregarRegistro(registro);
+
+        //retorna Asignacion porque solo el Propietario sabe si tiene bonificacion en el Puesto y se necesita el nombre de dicho bono
+        return a;
+    }
+
+    private void validarRealizarTransito(int monto) throws SaldoException, EstadoException{
+        //de no estar habilitado no se descuenta 
+        validarEstado();
+
+        //como el 
+        descontarTransito(monto);
+    }
+
+    private void descontarTransito(int monto) throws SaldoException{
+        if(this.saldo - monto < 0) throw new SaldoException("Saldo insuficiente: " + this.saldo + " para cobrar el total: " + monto);
+
+        //cuando vaya a descontar tambien hay que cambar el campo montoPagado de Registro
+        //funciona si es Exonerado y el saldo es cero
+        this.saldo -= monto;
+    }
+
+    private void validarEstado() throws EstadoException{
+        this.estadoPropietario.puedeTransitar();
+    }
+
+    private Asignacion buscarAsignacionSegunPuesto(Puesto puesto) {
+        for(Asignacion a : this.asignaciones){
+            if(a.equals(puesto)) return a;
+        }
+
+        return null;
+    }
 
     
 

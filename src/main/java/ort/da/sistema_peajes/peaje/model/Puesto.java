@@ -48,7 +48,7 @@ public class Puesto {
 		return this.obtenerTarifaSegunCategoriaVehiculo(vehiculo).getMonto();
 	}
 
-	private Tarifa obtenerTarifaSegunCategoriaVehiculo(Vehiculo vehiculo) {
+	public Tarifa obtenerTarifaSegunCategoriaVehiculo(Vehiculo vehiculo) {
 		for (Tarifa tarifa : this.tarifas) {
 			if (tarifa.mismaCategoria(vehiculo.getCategoria())) {
 				return tarifa;

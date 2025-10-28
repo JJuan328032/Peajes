@@ -26,4 +26,8 @@ public abstract class EstadoPropietario {
     public abstract void deshabilitado() throws EstadoException;
 
 
+
+    public abstract void puedeTransitar() throws EstadoException;
+
+
 }

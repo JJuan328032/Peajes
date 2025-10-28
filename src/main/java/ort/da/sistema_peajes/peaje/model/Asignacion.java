@@ -30,4 +30,12 @@ public class Asignacion {
 		return this.fecha;
 	}
 
+	public boolean equals(Puesto p){
+		return this.puesto.equals(p);
+	}
+
+
+    public int calcularMontoBonificado(int montoTarifa) {
+        return this.bonificacion.calcular(montoTarifa);
+    }
 }

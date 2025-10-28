@@ -39,6 +39,12 @@ public class Deshabilitado extends EstadoPropietario {
         throw new UnsupportedOperationException("Unimplemented method 'deshabilitado'");
     }
 
+    @Override
+    public void puedeTransitar() throws EstadoException {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'puedeTransitar'");
+    }
+
     
 
 }

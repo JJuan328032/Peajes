@@ -1,6 +1,7 @@
 package ort.da.sistema_peajes.peaje.model;
 
 public class Tarifa {
+    
     private String tipo;
     private int monto;
     private CategoriaVehiculos categoria;

@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ort.da.sistema_peajes.Respuesta;
 import ort.da.sistema_peajes.peaje.dto.mappers.MapperTransito;
+import ort.da.sistema_peajes.peaje.exceptions.EstadoException;
+import ort.da.sistema_peajes.peaje.exceptions.SaldoException;
+import ort.da.sistema_peajes.peaje.exceptions.VehiculoException;
 import ort.da.sistema_peajes.peaje.model.Puesto;
 import ort.da.sistema_peajes.peaje.service.Fachada;
 
@@ -34,7 +37,7 @@ public class ControladorEmular {
     }
 
     @PostMapping("/transito")
-    public List<Respuesta> emularTransito(@RequestParam String puesto, @RequestParam String matricula, @RequestParam LocalDateTime fechaHora){
+    public List<Respuesta> emularTransito(@RequestParam String puesto, @RequestParam String matricula, @RequestParam LocalDateTime fechaHora) throws SaldoException, EstadoException, VehiculoException{
         
 
         //Se debe retornar
