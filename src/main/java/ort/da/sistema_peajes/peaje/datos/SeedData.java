@@ -7,9 +7,7 @@ import ort.da.sistema_peajes.peaje.service.Fachada;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 
 /**
@@ -18,9 +16,6 @@ import java.util.Arrays;
  */
 public class SeedData {
     private static Fachada fachada = Fachada.getInstancia();
-    private static SistemaPuestos sistemaPuestos = new SistemaPuestos();
-    private static SistemaVehiculos sistemaVehiculos = new SistemaVehiculos();
-    private static SistemaRegistro sistemaRegistro = new SistemaRegistro();
 
     public static void cargarDatos() {
         System.out.println("Cargando datos de prueba...");
@@ -41,13 +36,14 @@ public class SeedData {
 
         agregarTarifas(peaje1);
         agregarTarifas(peaje2);
+
         try{
-            sistemaPuestos.agregarPuesto(peaje1);
-            sistemaPuestos.agregarPuesto(peaje2);
+            fachada.agregarPuesto(peaje1);
+            fachada.agregarPuesto(peaje2);
         } catch (Exception e){
             System.out.println("Error al agregar puestos: " + e.getMessage());
         }
-        
+
 
         // Asignar bonificaciones a propietarios
         Asignacion asig1 = new Asignacion(peaje1, bonFrecuente, LocalDate.of(2025, 1, 1));
@@ -62,10 +58,10 @@ public class SeedData {
         Vehiculo v3 = new Vehiculo("GHI789", "Honda Civic", "Azul", "Automóvil");
         Vehiculo v4 = new Vehiculo("JKL012", "Yamaha MT-07", "Negro", "Moto");
 
-        sistemaVehiculos.agregarVehiculo(v1);
-        sistemaVehiculos.agregarVehiculo(v2);
-        sistemaVehiculos.agregarVehiculo(v3);
-        sistemaVehiculos.agregarVehiculo(v4);
+        fachada.agregarVehiculo(v1);
+        fachada.agregarVehiculo(v2);
+        fachada.agregarVehiculo(v3);
+        fachada.agregarVehiculo(v4);
 
         v1.setPropietario(prop1);
         prop1.agregarVehiculo(v1);
@@ -88,7 +84,7 @@ public class SeedData {
         r1.setBonificacion(bonFrecuente.getNombre());
         r1.setMontoBonificado(20);
         r1.setMontoPagado();
-        sistemaRegistro.agregarRegistro(r1);
+        fachada.agregarRegistro(r1);
         prop1.agregarRegistro(r1);
 
         //System.out.println("Primer Registro: " + r1);
@@ -97,7 +93,7 @@ public class SeedData {
         r2.setBonificacion(bonTrabajador.getNombre());
         r2.setMontoBonificado(0);
         r2.setMontoPagado();
-        sistemaRegistro.agregarRegistro(r2);
+        fachada.agregarRegistro(r2);
         prop1.agregarRegistro(r2);
 
         //System.out.println("Segundo Registro: " + r2);
@@ -106,7 +102,7 @@ public class SeedData {
         r3.setBonificacion(bonTrabajador.getNombre());
         r3.setMontoBonificado(50);
         r3.setMontoPagado();
-        sistemaRegistro.agregarRegistro(r3);
+        fachada.agregarRegistro(r3);
         prop2.agregarRegistro(r3);
 
         //System.out.println("Tercer Registro: " + r3);
@@ -115,7 +111,7 @@ public class SeedData {
         r4.setBonificacion(bonFrecuente.getNombre());
         r4.setMontoBonificado(0);
         r4.setMontoPagado();
-        sistemaRegistro.agregarRegistro(r4);
+        fachada.agregarRegistro(r4);
         prop2.agregarRegistro(r4);
 
         //System.out.println("Cuarto Registro: " + r4);
@@ -124,7 +120,7 @@ public class SeedData {
         r5.setBonificacion(bonTrabajador.getNombre());
         r5.setMontoBonificado(10);
         r5.setMontoPagado();
-        sistemaRegistro.agregarRegistro(r5);
+        fachada.agregarRegistro(r5);
         prop1.agregarRegistro(r5);
 
         //System.out.println("Quinto Registro: " + r5);
@@ -139,11 +135,11 @@ public class SeedData {
 
     private static void agregarTarifas(Puesto puesto) {
         ArrayList<Tarifa> tarifas = new ArrayList<>();
-        tarifas.add(new Tarifa("Automóvil", 100, "Automóvil"));
-        tarifas.add(new Tarifa("Camioneta", 150, "Camioneta"));
-        tarifas.add(new Tarifa("Camión", 300, "Camión"));
-        tarifas.add(new Tarifa("Ómnibus", 250, "Ómnibus"));
-        tarifas.add(new Tarifa("Moto", 50, "Moto"));
+        tarifas.add(new Tarifa("Automóvil", 100, "(A)Automóvil"));
+        tarifas.add(new Tarifa("Camioneta", 150, "(B)Camioneta"));
+        tarifas.add(new Tarifa("Camión", 300, "(C)Camión"));
+        tarifas.add(new Tarifa("Ómnibus", 250, "(D)Ómnibus"));
+        tarifas.add(new Tarifa("Moto", 50, "(F)Moto"));
         puesto.setTarifas(tarifas);
     }
 }

@@ -9,11 +9,13 @@ import ort.da.sistema_peajes.peaje.datos.SistemaPuestos;
 import ort.da.sistema_peajes.peaje.datos.SistemaRegistro;
 import ort.da.sistema_peajes.peaje.datos.SistemaVehiculos;
 import ort.da.sistema_peajes.peaje.exceptions.EstadoException;
+import ort.da.sistema_peajes.peaje.exceptions.PuestoException;
 import ort.da.sistema_peajes.peaje.exceptions.SaldoException;
 import ort.da.sistema_peajes.peaje.exceptions.VehiculoException;
 import ort.da.sistema_peajes.peaje.datos.SistemaUsuarios;
 import ort.da.sistema_peajes.peaje.model.InfoTransito;
 import ort.da.sistema_peajes.peaje.model.Puesto;
+import ort.da.sistema_peajes.peaje.model.Registro;
 import ort.da.sistema_peajes.peaje.model.Tarifa;
 import ort.da.sistema_peajes.peaje.model.Vehiculo;
 import ort.da.sistema_peajes.peaje.model.Usuarios.Administrador;
@@ -84,8 +86,20 @@ public class Fachada {
 		sistemaUsuarios.agregarVehiculoPropietario(v, p);
 	}
 
-    public InfoTransito emularTransito(String puestoNombre, String matricula, LocalDateTime fechaHora) throws SaldoException, EstadoException, VehiculoException{
-		return sistemaRegistro.realizarTransito(sistemaPuestos.obtenerPuestoPorNombre(puestoNombre), sistemaVehiculos.obtenerVehiculoPorMatricula(matricula), fechaHora);
+    public InfoTransito emularTransito(int indicePuesto, String matricula, LocalDateTime fechaHora) throws SaldoException, EstadoException, VehiculoException{
+		return sistemaRegistro.realizarTransito(sistemaPuestos.obtenerPuestoPorIndice(indicePuesto), sistemaVehiculos.obtenerVehiculoPorMatricula(matricula), fechaHora);
+    }
+
+	public void agregarPuesto(Puesto peaje1) throws PuestoException{
+		sistemaPuestos.agregarPuesto(peaje1);
+	}
+
+    public void agregarVehiculo(Vehiculo v1) {
+        sistemaVehiculos.agregarVehiculo(v1);
+    }
+
+    public void agregarRegistro(Registro r1) {
+        sistemaRegistro.agregarRegistro(r1);
     }
 
 

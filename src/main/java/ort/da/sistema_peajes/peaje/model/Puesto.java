@@ -41,7 +41,7 @@ public class Puesto {
 	}
 
     public void setTarifas(ArrayList<Tarifa> nuevasTarifas) {
-        this.tarifas.addAll(nuevasTarifas);
+		for(Tarifa t : nuevasTarifas) this.tarifas.add(t);
     }
 
 	public int obtenerMontoTarifaSegunVehiculo(Vehiculo vehiculo) {
@@ -56,5 +56,13 @@ public class Puesto {
 		}
 
 		return null;
+	}
+
+	public boolean equals(Puesto p){
+		return this.getNombre().equals(p.getNombre());
+	}
+
+	public String toString(){
+		return "Nombre: " + nombre + " Direccion: " + direccion;
 	}
 }

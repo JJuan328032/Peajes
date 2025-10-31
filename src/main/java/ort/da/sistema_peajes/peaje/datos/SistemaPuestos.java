@@ -25,8 +25,8 @@ public class SistemaPuestos {
 	}
 
     public Puesto obtenerPuestoPorNombre(String nombre) {
-		for (Puesto p : puestos) {
-			if (p.getNombre().equalsIgnoreCase(nombre)) {
+		for (Puesto p : this.puestos) {
+			if (p.getNombre().equals(nombre)) {
 				return p;
 			}
 		}
@@ -40,5 +40,9 @@ public class SistemaPuestos {
 
     public Tarifa obtenerTarifaSegunPuestoYVehiculo(String puesto, Vehiculo vehiculo) {
         return this.obtenerPuestoPorNombre(puesto).obtenerTarifaSegunCategoriaVehiculo(vehiculo);
+    }
+
+    public Puesto obtenerPuestoPorIndice(int indicePuesto) {
+        return this.puestos.get(indicePuesto);
     }
 }
