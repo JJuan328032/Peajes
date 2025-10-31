@@ -9,6 +9,8 @@ public abstract class Usuario {
 	private String usuario;
 	private String password;
 	private String nombreCompleto;
+	private String cedula;	
+	
 
 
 	public Usuario(String usuario, String password, String nombreCompleto) {
@@ -24,6 +26,11 @@ public abstract class Usuario {
 		return this.nombreCompleto;
 	}
 
+	public String getCedula() {	
+		return this.cedula;
+	}
+
+	
     public boolean validarCredenciales(String usuario, String password) throws EstadoException, LoginException{
 		return this.usuario.equals(usuario) && this.password.equals(password);
 	}

@@ -19,6 +19,9 @@ public class SeedData {
     private static SistemaPuestos sistemaPuestos = new SistemaPuestos();
     private static SistemaVehiculos sistemaVehiculos = new SistemaVehiculos();
     private static SistemaRegistro sistemaRegistro = new SistemaRegistro();
+    private static SistemaBonificaciones sistemaBonificaciones = new SistemaBonificaciones();
+    private static SistemaUsuarios sistemaUsuarios = new SistemaUsuarios();
+
 
     public static void cargarDatos() {
         System.out.println("Cargando datos de prueba...");
@@ -30,17 +33,15 @@ public class SeedData {
         fachada.agregarAdministrador("a", "a", "Juan Pérez");
 
         // Crear bonificaciones
-        Bonificacion bonFrecuente = new Descuento(20, "Frecuente");
-        Bonificacion bonTrabajador = new Descuento(50, "Trabajador");
+        Bonificacion bonFrecuente = fachada.agregarBonificacion(20, "Frecuente");
+        Bonificacion bonTrabajador = fachada.agregarBonificacion(50, "Trabajador");
 
         // Crear puestos con tarifas
-        Puesto peaje1 = new Puesto("Peaje Ruta 1", "Km 56 Ruta 1");
-        Puesto peaje2 = new Puesto("Peaje Ruta 5", "Km 98 Ruta 5");
+        Puesto peaje1 = fachada.agregarPuesto("Peaje Ruta 1", "Km 56 Ruta 1");
+        Puesto peaje2 = fachada.agregarPuesto("Peaje Ruta 5", "Km 98 Ruta 5");
 
         agregarTarifas(peaje1);
         agregarTarifas(peaje2);
-        sistemaPuestos.agregarPuesto(peaje1);
-        sistemaPuestos.agregarPuesto(peaje2);
 
         // Asignar bonificaciones a propietarios
         Asignacion asig1 = new Asignacion(peaje1, bonFrecuente, LocalDate.of(2025, 1, 1));
