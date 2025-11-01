@@ -28,9 +28,9 @@ public class SeedData {
 
         // Crear usuarios
 
-        Propietario prop1 = fachada.agregarPropietario("p", "p", "Carlos Rodríguez");
-        Propietario prop2 = fachada.agregarPropietario("prop2", "prop456", "Ana Martínez");
-        fachada.agregarAdministrador("a", "a", "Juan Pérez");
+        Propietario prop1 = fachada.agregarPropietario("p", "p", "Carlos Rodríguez","0");
+        Propietario prop2 = fachada.agregarPropietario("prop2", "prop456", "Ana Martínez","1");
+        fachada.agregarAdministrador("a", "a", "Juan Pérez","2");
 
         // Crear bonificaciones
         Bonificacion bonFrecuente = fachada.agregarBonificacion(20, "Frecuente");

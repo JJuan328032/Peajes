@@ -37,13 +37,13 @@ public class SistemaUsuarios {
 		return administrador;
 	}
 
-    public void agregarAdministrador(String user, String pass, String nombreCompleto) {
-        this.administradores.add(new Administrador(user, pass, nombreCompleto));
+    public void agregarAdministrador(String user, String pass, String nombreCompleto, String cedula) {
+        this.administradores.add(new Administrador(user, pass, nombreCompleto,cedula));
     }
 
 
-    public Propietario agregarPropietario(String user, String pass, String nombreCompleto) {
-		Propietario p = new Propietario(user, pass, nombreCompleto);
+    public Propietario agregarPropietario(String user, String pass, String nombreCompleto, String cedula) {
+		Propietario p = new Propietario(user, pass, nombreCompleto, cedula);
         this.propietarios.add(p);
 
 		return p;
@@ -67,5 +67,19 @@ public class SistemaUsuarios {
     public void logoutAdmin(Administrador a) {
         a.setLogged(false);
     }
+
+	public <T extends Usuario> T buscarUsuarioCedula(String cedula, ArrayList<T> lista) throws EstadoException {
+    for (T u : lista) {
+        if (u.validarCedula(cedula)) {
+            return u;
+        }
+    }
+    return null;
+	}
+
+
+	public Propietario buscarPropietarioPorCedula(String cedula) throws LoginException, EstadoException{
+		return buscarUsuarioCedula(cedula, this.propietarios);
+	}
 
 }

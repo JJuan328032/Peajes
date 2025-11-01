@@ -2,10 +2,13 @@ package ort.da.sistema_peajes.peaje.controlador;
 
 import java.util.List;
 
+import javax.security.auth.login.LoginException;
+
 import org.springframework.web.bind.annotation.*;
 import jakarta.servlet.http.HttpSession;
 import ort.da.sistema_peajes.Respuesta;
-import ort.da.sistema_peajes.peaje.dto.PropietarioDTO;
+import ort.da.sistema_peajes.peaje.dto.mappers.MapperPropietarioBonificacion;
+import ort.da.sistema_peajes.peaje.exceptions.EstadoException;
 import ort.da.sistema_peajes.peaje.model.Puesto;
 import ort.da.sistema_peajes.peaje.model.Bonificacion.Bonificacion;
 import ort.da.sistema_peajes.peaje.model.Usuarios.Administrador;
@@ -38,9 +41,47 @@ public class ControladorAsignarBonificaciones {
         );
     }
 
-    /*// Buscar propietario por cédula
+   /*  @PostMapping("/propietario/buscar")
+    public List<Respuesta> buscarPropietario(@RequestParam String cedula, HttpSession sesionHttp)
+        throws LoginException, EstadoException {
+
+    System.out.println("Llegó al controlador con cédula: " + cedula);
+
+    Administrador admin = (Administrador) sesionHttp.getAttribute("administrador");
+    if (admin == null) {
+        return Respuesta.lista(new Respuesta("Error", "No tiene permisos o la sesión expiró"));
+    }
+
+    try {
+        // Buscar el propietario desde la fachada
+        Propietario encontrado = Fachada.getInstancia().buscarPropietarioPorCedula(cedula);
+
+        if (encontrado == null) {
+            return Respuesta.lista(new Respuesta("Error", "No se encontró un propietario con esa cédula."));
+        }
+
+        System.out.println("Encontrado: " + encontrado.getNombreCompleto());
+
+        // Mapeo a DTO (esto también puede lanzar error)
+        return Respuesta.lista(
+            new Respuesta("propietario", MapperPropietarioBonificacion.toDTO(encontrado))
+        );
+
+    } catch (Exception e) {
+        System.out.println( "Excepción al buscar propietario: " + e.getMessage());
+        e.printStackTrace(); // Muestra en consola la causa exacta
+        return Respuesta.lista(new Respuesta("Error", "Ocurrió un error interno en el servidor."));
+    }
+} */
+
+
+    // Buscar propietario por cédula
     @PostMapping("/propietario/buscar")
-    public List<Respuesta> buscarPropietario(@RequestParam String cedula, HttpSession sesionHttp) {
+    public List<Respuesta> buscarPropietario(@RequestParam String cedula, HttpSession sesionHttp) throws LoginException, EstadoException {
+
+        System.out.println("Llegó al controlador con cédula: " + cedula);
+
+
         Administrador admin = (Administrador) sesionHttp.getAttribute("administrador");
         if (admin == null) {
             return Respuesta.lista(new Respuesta("Error", "No tiene permisos o la sesión expiró"));
@@ -52,16 +93,18 @@ public class ControladorAsignarBonificaciones {
             return Respuesta.lista(new Respuesta("Error", "No se encontró un propietario con esa cédula."));
         }
 
+        System.out.println("Encontrado: " + encontrado.getNombreCompleto());
+
         // Obtener sus bonificaciones actuales
-        List<Bonificacion> bonificacionesDTO = Fachada.getInstancia().obtenerBonificacionesDePropietario(encontrado);
+        //List<Bonificacion> bonificacionesDTO = Fachada.getInstancia().obtenerBonificacionesDePropietario(encontrado);
 
         return Respuesta.lista(
-                new Respuesta("propietario", encontrado),
-                new Respuesta("bonificaciones", bonificacionesDTO)
+                new Respuesta("propietario", MapperPropietarioBonificacion.toDTO(encontrado))
+                //new Respuesta("bonificaciones", bonificacionesDTO)
         );
-    }
+    } 
 
-    //  Asignar bonificaciones a un propietario en determinados puestos
+    /*//  Asignar bonificaciones a un propietario en determinados puestos
     @PostMapping("/asignar")
     public Respuesta asignarBonificaciones(
             @RequestParam String cedulaPropietario,

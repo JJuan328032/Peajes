@@ -25,14 +25,16 @@
                     </select>
                 </div>
 
-                <div class="form-group">
-                    <label for="cedula">Cédula de identidad</label>
-                    <input type="text" id="cedula" name="cedula" placeholder="Ingrese cédula">
-                    <button class="btn" onclick="buscarPropietario()">Buscar propietario</button>
-                </div>
             </div>
 
             <!-- Panel Derecho: Información del propietario y bonificaciones -->
+
+            <div class="form-group">
+                    <label for="cedula">Cédula de identidad</label>
+                    <input type="text" id="cedula" name="cedula" placeholder="Ingrese cédula">
+                    <button class="btn" onclick="buscarPropietario()">Buscar propietario</button>
+            </div>
+
             <div class="panel-derecho">
                 <div class="section info-propietario" style="display: none;">
                     <h3>Propietario</h3>
@@ -73,7 +75,8 @@
                 alert('Ingrese una cédula');
                 return;
             }
-            submit('/administrador/propietario/buscar', 'cedula=' + encodeURIComponent(cedula));
+            submit('/bonificaciones/propietario/buscar', 'cedula=' + encodeURIComponent(cedula));
+
         }
 
         // Función para asignar bonificación

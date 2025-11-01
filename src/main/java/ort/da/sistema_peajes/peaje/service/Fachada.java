@@ -60,12 +60,12 @@ public class Fachada {
 		return sistemaUsuarios.loginAdministrador(user, pass);
 	}
 
-	public void agregarAdministrador(String user, String pass, String nombreCompleto) {
-		sistemaUsuarios.agregarAdministrador(user, pass, nombreCompleto);
+	public void agregarAdministrador(String user, String pass, String nombreCompleto, String cedula) {
+		sistemaUsuarios.agregarAdministrador(user, pass, nombreCompleto, cedula);
 	}
 
-    public Propietario agregarPropietario(String user, String pass, String nombreCompleto) {
-        return sistemaUsuarios.agregarPropietario(user, pass, nombreCompleto);
+    public Propietario agregarPropietario(String user, String pass, String nombreCompleto, String cedula) {
+        return sistemaUsuarios.agregarPropietario(user, pass, nombreCompleto, cedula);
     }
 
     public void logoutAdmin(Administrador a) {
@@ -99,7 +99,6 @@ public class Fachada {
 
 	}
 
-	/*
 	public Propietario buscarPropietarioPorCedula(String cedula) throws LoginException, EstadoException {
 		Propietario p = sistemaUsuarios.buscarPropietarioPorCedula(cedula);
 		if (p == null) {
@@ -108,7 +107,8 @@ public class Fachada {
 		return p;
 		
 	}
-
+	
+	/*
 	public List<Bonificacion> obtenerBonificacionesDePropietario(Propietario encontrado) {
 		
 		throw new UnsupportedOperationException("Unimplemented method 'obtenerBonificacionesDePropietario'");
